@@ -1,0 +1,16 @@
+$ g++ -std=c++17 -Wall -Wextra no_default_ctor.cpp -o no_default_ctor
+no_default_ctor.cpp: In function 'int main()':
+no_default_ctor.cpp:14:17: error: no matching function for call to 'Book::Book()'
+   14 |     Book shelf[3];   // error: no matching function for call to 'Book::Book()'
+      |                 ^
+no_default_ctor.cpp:9:5: note: candidate: 'Book::Book(const std::string&, int)'
+    9 |     Book(const std::string& t, int c) : title(t), copies(c) {}   // user-declared ctor
+      |     ^~~~
+no_default_ctor.cpp:9:5: note:   candidate expects 2 arguments, 0 provided
+no_default_ctor.cpp:5:7: note: candidate: 'Book::Book(const Book&)'
+    5 | class Book {
+      |       ^~~~
+no_default_ctor.cpp:5:7: note:   candidate expects 1 argument, 0 provided
+no_default_ctor.cpp:5:7: note: candidate: 'Book::Book(Book&&)'
+no_default_ctor.cpp:5:7: note:   candidate expects 1 argument, 0 provided
+[compilation failed]

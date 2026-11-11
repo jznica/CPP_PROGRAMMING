@@ -1,0 +1,6 @@
+$ g++ -std=c++17 -Wall -Wextra -g shallow.cpp -o shallow && stdbuf -oL ./shallow
+original  [array at 0x565231f002b8] : Paracetamol, Cetirizine
+follow-up [array at 0x565231f002b8] : Paracetamol, Cetirizine
+Leaving main: followUp's destructor deletes the array, then original's destructor deletes the SAME array again (double delete)
+Segmentation fault (core dumped)
+[exit code 139]

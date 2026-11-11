@@ -1,0 +1,6 @@
+$ g++ -std=c++17 -Wall -Wextra member_vs_friend.cpp -o mvf && ./mvf
+m + 100 = Rs 120.50
+100 + m = Rs 120.50
+add(100, m) = Rs 120.50, equals = true
+sizeof(Money) = 8 bytes in every version
+[exit code 0]

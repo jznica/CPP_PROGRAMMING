@@ -1,0 +1,21 @@
+$ g++ -std=c++17 -Wall -Wextra book.cpp -o book && ./book
+--- 1. Creating Book objects with every constructor ---
+b1: full-ctor 
+b2: full-ctor -> title-only-ctor 
+b3: full-ctor -> default-ctor 
+Book{ title="The Pragmatic Programmer", author="Hunt & Thomas", copies=5 }
+Book{ title="Wings of Fire", author="Unknown (donated)", copies=1 }
+Book{ title="<empty>", author="<empty>", copies=0 }
+
+--- 2. Array of Books (uses the default constructor 3 times) ---
+full-ctor -> default-ctor full-ctor -> default-ctor full-ctor -> default-ctor 
+Book{ title="Clean Code", author="Robert C. Martin", copies=2 }
+Book{ title="<empty>", author="<empty>", copies=0 }
+Book{ title="<empty>", author="<empty>", copies=0 }
+
+--- 3. Invalid number of copies ---
+Rejected: number of copies cannot be negative (got -1)
+Rejected: number of copies cannot be negative (got -100)
+Rejected: number of copies cannot be negative (got -2147483648)
+fill() rejected: number of copies cannot be negative (got -5)  -> b3 unchanged: Book{ title="<empty>", author="<empty>", copies=0 }
+[exit code 0]

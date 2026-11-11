@@ -1,0 +1,6 @@
+$ g++ -std=c++17 -Wall -Wextra complete_the_code.cpp -o ctc && ./ctc
+Rs 200.00
+true
+Rs 0.75 + Rs 0.50 = Rs 1.25
+true
+[exit code 0]

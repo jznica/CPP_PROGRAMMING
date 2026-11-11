@@ -1,0 +1,3 @@
+$ g++ -std=c++17 -Wall -Wextra predict_counter.cpp -o predict_counter && ./predict_counter
+5 7 7
+[exit code 0]

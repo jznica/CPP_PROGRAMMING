@@ -1,0 +1,21 @@
+$ true && ./bugs mismatch
+=================================================================
+==2864==ERROR: AddressSanitizer: alloc-dealloc-mismatch (operator new [] vs operator delete) on 0x503000000040
+    #0 0x7f54e0aff5e8 in operator delete(void*, unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:164
+    #1 0x560dca81047c in main Q3/bugs.cpp:28
+    #2 0x7f54e022a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f54e022a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x560dca8102a4 in _start (Q3/bugs+0x12a4) (BuildId: 5a7fe286c876c9f772f97ec2277ac8dee5591121)
+
+0x503000000040 is located 0 bytes inside of 20-byte region [0x503000000040,0x503000000054)
+allocated by thread T0 here:
+    #0 0x7f54e0afe6c8 in operator new[](unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:98
+    #1 0x560dca810445 in main Q3/bugs.cpp:26
+    #2 0x7f54e022a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f54e022a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x560dca8102a4 in _start (Q3/bugs+0x12a4) (BuildId: 5a7fe286c876c9f772f97ec2277ac8dee5591121)
+
+SUMMARY: AddressSanitizer: alloc-dealloc-mismatch ../../../../src/libsanitizer/asan/asan_new_delete.cpp:164 in operator delete(void*, unsigned long)
+==2864==HINT: if you don't care about these errors you may set ASAN_OPTIONS=alloc_dealloc_mismatch=0
+==2864==ABORTING
+[exit code 1]

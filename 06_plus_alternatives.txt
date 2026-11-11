@@ -1,0 +1,5 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 plus_alternatives.cpp -o plus_alt && ./plus_alt
+(A) friend operator+ building result : copy-ctor calls = 0, chars copied = 9000, allocations = 2, bytes = 9002  (len 6000)
+(B) operator+(Text a, ...) { a += b }  : copy-ctor calls = 3, chars copied = 19000, allocations = 5, bytes = 19005  (len 6000)
+(C) std::string a + b + c              : allocations = 2, bytes = 9002  (len 6000)
+[exit code 0]

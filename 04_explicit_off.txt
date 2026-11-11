@@ -1,0 +1,4 @@
+$ g++ -std=c++17 -Wall -Wextra explicit_demo.cpp -o explicit_demo && ./explicit_demo
+Book{Dune, 1}
+Book{Dune, 1}
+[exit code 0]

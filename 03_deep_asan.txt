@@ -1,0 +1,27 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address deep.cpp -o deep_asan && ./deep_asan
+--- 1. Independence of copies ---
+    [copy constructor called]
+original  [array at 0x507000000098] : Paracetamol, ORS
+follow-up [array at 0x507000000108] : Paracetamol, Cetirizine
+
+--- 2. Copies made when passing ---
+  pass by value:
+    [copy constructor called]
+  copies made = 1
+  pass by const reference:
+  copies made = 0
+  return by value (copy elision):
+  copies made = 0  (Zinc)
+
+--- 3. Copy assignment and self-assignment ---
+    [copy assignment called]
+r         [array at 0x5070000001e8] : Paracetamol, ORS
+    [copy assignment called]
+    [self-assignment detected - nothing to do]
+r (after r = r) [array at 0x5070000001e8] : Paracetamol, ORS
+
+--- 4. Time to copy a prescription ---
+  n = 10	: 0.676315 us per copy  (67.6315 ns per medicine)
+  n = 1000	: 34.6396 us per copy  (34.6396 ns per medicine)
+  n = 100000	: 3543.77 us per copy  (35.4377 ns per medicine)
+[exit code 0]

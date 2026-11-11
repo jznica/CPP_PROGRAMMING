@@ -1,0 +1,3 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address complete_the_code.cpp -o ctc && ./ctc
+Ibuprofen ORS | Paracetamol Cetirizine | Paracetamol ORS
+[exit code 0]

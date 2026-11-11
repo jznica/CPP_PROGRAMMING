@@ -1,0 +1,3 @@
+$ true && ./bugs correct
+correct: every new has a matching delete / delete[]
+[exit code 0]

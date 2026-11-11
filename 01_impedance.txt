@@ -1,0 +1,39 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 impedance.cpp -o impedance && ./impedance circuit_input.txt
+Inputs: R = 10.0000 ohm, L = 0.1000 H, C = 100.0000 uF, f = 50.0000 Hz, w = 314.1593 rad/s
+
+--- Component impedances ---
+  Resistor              Z = 10.0000 + j0.0000 ohm   |Z| = 10.0000 ohm   angle = 0.0000 deg
+  Inductor              Z = 0.0000 + j31.4159 ohm   |Z| = 31.4159 ohm   angle = 90.0000 deg
+  Capacitor             Z = 0.0000 - j31.8310 ohm   |Z| = 31.8310 ohm   angle = -90.0000 deg
+
+--- Series and parallel RLC ---
+  Series R+L+C          Z = 10.0000 - j0.4151 ohm   |Z| = 10.0086 ohm   angle = -2.3768 deg
+  Parallel R||L||C      Z = 9.9998 + j0.0415 ohm   |Z| = 9.9999 ohm   angle = 0.2378 deg
+  series matches hand calculation   : true
+  parallel matches hand calculation : true
+
+--- Operator checks ---
+  a = 3.0000 + j4.0000, b = 1.0000 - j2.0000
+  a + b = 4.0000 + j2.0000,  a - b = 2.0000 + j6.0000
+  a * b = 11.0000 - j2.0000,  a / b = -1.0000 + j2.0000
+  (a / b) * b == a ? true   near? true
+  10 + a = 13.0000 + j4.0000  (needs + to be a non-member)
+  |a| = 5.0000
+
+--- Division by a zero impedance ---
+  caught std::domain_error: division by a zero impedance (0 + j0)
+  parallel LC at resonance (L = 1 H, C = 1 F, w = 1): division by a zero impedance (0 + j0)
+  capacitor at w = 0 (DC) or C = 0 is an open circuit
+
+--- Comparison with std::complex<double> ---
+  |series - std|   = 0.000e+00
+  |parallel - std| = 5.822e-15
+  std::complex (3+4j)/(0+0j) = (inf,inf)   (no exception: inf/nan)
+  ours  (1e200+1e200j)/(1e200+1e200j) = -nan + jnan   <- overflow in c*c+d*d
+  std:: (1e200+1e200j)/(1e200+1e200j) = (1.000e+00,0.000e+00)
+  sizeof(Complex) = 16, sizeof(std::complex<double>) = 16
+
+--- Time per operation (10,000,000 ops) ---
+  ours        : 10.07 ns per (*, /, +)   result 10001001.00 + j9999001.00
+  std::complex: 9.99 ns per (*, /, +)   result (10001001.00,9999001.00)
+[exit code 0]

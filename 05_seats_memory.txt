@@ -1,0 +1,15 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 seats.cpp -o seats && ./seats | sed -n '/--- 5/,$p'
+--- 5. Memory allocated for different seat maps ---
+  [ctor] Map 10x20 : 10 x 20 seats, 280 bytes requested in 11 allocations
+    measured heap growth (incl. Event object + malloc headers) = 320 bytes
+  [dtor] Map 10x20 closed: 0 of 200 seats booked, 280 bytes released
+  [ctor] Map 100x200 : 100 x 200 seats, 20800 bytes requested in 101 allocations
+    measured heap growth (incl. Event object + malloc headers) = 21616 bytes
+  [dtor] Map 100x200 closed: 0 of 20000 seats booked, 20800 bytes released
+  [ctor] Map 1000x2000 : 1000 x 2000 seats, 2008000 bytes requested in 1001 allocations
+    measured heap growth (incl. Event object + malloc headers) = 2024016 bytes
+  [dtor] Map 1000x2000 closed: 0 of 2000000 seats booked, 2008000 bytes released
+
+--- end of main: local objects destroyed now ---
+  [dtor] Concert(stack) closed: 2 of 15 seats booked, 39 bytes released
+[exit code 0]

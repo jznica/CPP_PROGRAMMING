@@ -1,0 +1,5 @@
+$ g++ -std=c++17 -Wall -Wextra -fno-elide-constructors text.cpp -o text_noelide && ./text_noelide | sed -n '/--- 4/,/^$/p'
+--- 4. Copies made by a + b + c (each operand 1000 chars) ---
+  copy-constructor calls = 2, allocations = 4, characters copied = 10000
+
+[exit code 0]

@@ -1,0 +1,12 @@
+$ g++ -std=c++17 -Wall -Wextra -DUSE_EXPLICIT explicit_demo.cpp -o explicit_on
+explicit_demo.cpp: In function 'int main()':
+explicit_demo.cpp:25:12: error: invalid initialization of reference of type 'const Book&' from expression of type 'std::string' {aka 'std::__cxx11::basic_string<char>'}
+   25 |     shelve(t);        // implicit conversion std::string -> Book (a temporary book is created!)
+      |            ^
+explicit_demo.cpp:21:25: note: in passing argument 1 of 'void shelve(const Book&)'
+   21 | void shelve(const Book& b) { b.print(); }
+      |             ~~~~~~~~~~~~^
+explicit_demo.cpp:26:14: error: conversion from 'std::string' {aka 'std::__cxx11::basic_string<char>'} to non-scalar type 'Book' requested
+   26 |     Book b = t;       // copy-initialisation also needs the implicit conversion
+      |              ^
+[compilation failed]

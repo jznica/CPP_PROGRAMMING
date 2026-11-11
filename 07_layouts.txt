@@ -1,0 +1,14 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 layouts.cpp -o layouts && ./layouts
+10 x 20:
+  row pointers	 allocations = 11	 bytes requested = 280	 access = 0.5945 ns/seat
+  flat block  	 allocations = 1	 bytes requested = 200	 access = 0.589 ns/seat
+  vector<vector>	 allocations = 12	 bytes requested = 460	 access = 0.606 ns/seat
+100 x 200:
+  row pointers	 allocations = 101	 bytes requested = 20800	 access = 0.466707 ns/seat
+  flat block  	 allocations = 1	 bytes requested = 20000	 access = 0.376192 ns/seat
+  vector<vector>	 allocations = 102	 bytes requested = 22600	 access = 0.509868 ns/seat
+1000 x 2000:
+  row pointers	 allocations = 1001	 bytes requested = 2008000	 access = 0.379905 ns/seat
+  flat block  	 allocations = 1	 bytes requested = 2000000	 access = 0.418096 ns/seat
+  vector<vector>	 allocations = 1002	 bytes requested = 2026000	 access = 0.436578 ns/seat
+[exit code 0]

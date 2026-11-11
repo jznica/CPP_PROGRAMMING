@@ -1,0 +1,8 @@
+$ g++ -std=c++17 -Wall -Wextra -DMEMBER member_vs_friend.cpp -o mvf_member
+member_vs_friend.cpp: In function 'int main()':
+member_vs_friend.cpp:30:38: error: no match for 'operator+' (operand types are 'int' and 'Money')
+   30 |     std::cout << "100 + m = " << 100 + m << '\n';   // member: no int::operator+(Money) -> ERROR
+      |                                  ~~~ ^ ~
+      |                                  |     |
+      |                                  int   Money
+[compilation failed]

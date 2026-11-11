@@ -1,0 +1,35 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address seats.cpp -o seats_asan && ./seats_asan
+--- 1. Object on the stack (local) ---
+  [ctor] Concert(stack) : 3 x 5 seats, 39 bytes requested in 4 allocations
+    book(0,1): OK
+    book(0,2): OK
+    book(2,4): OK
+    book(0,2): already booked
+    cancel(0,1): OK
+    book(5,0): no such seat
+    row 0 : ..X..
+    row 1 : .....
+    row 2 : ....X
+
+--- 2. Object inside a block ---
+  [ctor] Seminar(block) : 2 x 4 seats, 24 bytes requested in 3 allocations
+    book(1,1): OK
+  leaving the block...
+  [dtor] Seminar(block) closed: 1 of 8 seats booked, 24 bytes released
+  after the block
+
+--- 3. Object on the heap (new / delete) ---
+  [ctor] Drama(heap) : 2 x 3 seats, 22 bytes requested in 3 allocations
+    book(1,2): OK
+  calling delete...
+  [dtor] Drama(heap) closed: 1 of 6 seats booked, 22 bytes released
+  after delete
+
+--- 4. Event with zero rows ---
+  [ctor] Empty(0 rows) : 0 x 10 seats, 0 bytes requested in 0 allocations
+    book(0,0): no such seat
+  [dtor] Empty(0 rows) closed: 0 of 0 seats booked, 0 bytes released
+
+--- end of main: local objects destroyed now ---
+  [dtor] Concert(stack) closed: 2 of 15 seats booked, 39 bytes released
+[exit code 0]

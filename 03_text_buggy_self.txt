@@ -1,0 +1,31 @@
+$ true && ./text_buggy self
+=================================================================
+==2984==ERROR: AddressSanitizer: strcpy-param-overlap: memory ranges [0x502000000030,0x502000000037) and [0x502000000030, 0x502000000037) overlap
+    #0 0x7f3a2a4a799c in strcpy ../../../../src/libsanitizer/asan/asan_interceptors.cpp:561
+    #1 0x55938383f82c in Text::operator=(Text const&) Q6/text_buggy.cpp:21
+    #2 0x55938383f4cd in main Q6/text_buggy.cpp:35
+    #3 0x7f3a29c2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f3a29c2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x55938383f284 in _start (Q6/text_buggy+0x1284) (BuildId: fc11b746801b1434807b77340167f1df52218073)
+
+0x502000000036 is located 0 bytes after 6-byte region [0x502000000030,0x502000000036)
+allocated by thread T0 here:
+    #0 0x7f3a2a4fe6c8 in operator new[](unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:98
+    #1 0x55938383f7bc in Text::operator=(Text const&) Q6/text_buggy.cpp:20
+    #2 0x55938383f4cd in main Q6/text_buggy.cpp:35
+    #3 0x7f3a29c2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f3a29c2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x55938383f284 in _start (Q6/text_buggy+0x1284) (BuildId: fc11b746801b1434807b77340167f1df52218073)
+
+0x502000000036 is located 0 bytes after 6-byte region [0x502000000030,0x502000000036)
+allocated by thread T0 here:
+    #0 0x7f3a2a4fe6c8 in operator new[](unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:98
+    #1 0x55938383f7bc in Text::operator=(Text const&) Q6/text_buggy.cpp:20
+    #2 0x55938383f4cd in main Q6/text_buggy.cpp:35
+    #3 0x7f3a29c2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f3a29c2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x55938383f284 in _start (Q6/text_buggy+0x1284) (BuildId: fc11b746801b1434807b77340167f1df52218073)
+
+SUMMARY: AddressSanitizer: strcpy-param-overlap ../../../../src/libsanitizer/asan/asan_interceptors.cpp:561 in strcpy
+==2984==ABORTING
+[exit code 1]

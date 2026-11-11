@@ -1,0 +1,25 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address text.cpp -o text_asan && ./text_asan
+--- 1. Basic operations ---
+  msg            : Your OTP is 482913.  (19 chars)
+  copy == msg    : true
+  copy != msg    : true  -> Your OTP is 482913. Do not share.
+  "Hi " + code    : Hi 482913   (works because + is a non-member)
+
+--- 2. Self-assignment ---
+  after msg = msg : Your OTP is 482913.
+  after msg += msg: Your OTP is 482913.Your OTP is 482913.
+
+--- 3. Empty and long messages ---
+  empty: size 0, empty == "" : true, empty + code = 482913
+  long : size 450 chars -> 3 SMS parts (153 chars each after the first 160)
+
+--- 4. Copies made by a + b + c (each operand 1000 chars) ---
+  copy-constructor calls = 0, allocations = 2, characters copied = 5000
+
+--- 5. 100,000 concatenations of one character ---
+  Text        t = t + x : 4430.98 ms
+  Text        t += x    : 883.457 ms
+  std::string s = s + x : 1047.89 ms
+  std::string s += x    : 1.59614 ms
+  lengths: 100000 100000 100000 100000
+[exit code 0]

@@ -1,0 +1,4 @@
+Notebook 45.50 4
+Pen 12.75 10
+Calculator 649.00 1
+Stapler 89.25 2

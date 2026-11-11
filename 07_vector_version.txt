@@ -1,0 +1,7 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 vector_version.cpp -o vector_version && ./vector_version
+Ibuprofen ORS | Paracetamol Cetirizine | Paracetamol ORS
+Time to copy (vector version / shallow pointer copy):
+  n = 10	: vector deep copy 0.0489588 us,  shallow copy 0.2749 ns
+  n = 1000	: vector deep copy 1.98883 us,  shallow copy 0.2762 ns
+  n = 100000	: vector deep copy 661.155 us,  shallow copy 1.98 ns
+[exit code 0]

@@ -1,0 +1,3 @@
+$ g++ -std=c++17 -Wall -Wextra bill_without_operators.cpp -o bill_fn && ./bill_fn
+Total = Rs 1087.00
+[exit code 0]

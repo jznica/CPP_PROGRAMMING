@@ -1,0 +1,29 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 money.cpp -o money && ./money bill_input.txt
+--- 1. Carry of paise into rupees ---
+Rs 0.75 + Rs 0.50 = Rs 1.25
+
+--- 2. Subtraction producing a negative amount ---
+Rs 100.00 - Rs 115.50 = -Rs 15.50
+Decision: negative result kept (it means the customer still owes Rs 15.50), shown with a '-' sign, never silently clamped.
+
+--- 3. Bill calculated with overloaded operators ---
+  Notebook    Rs 45.50 x 4 = Rs 182.00
+  Pen         Rs 12.75 x 10 = Rs 127.50
+  Calculator  Rs 649.00 x 1 = Rs 649.00
+  Stapler     Rs 89.25 x 2 = Rs 178.50
+  Subtotal = Rs 1137.00
+  Discount = Rs 50.00
+  Total    = Rs 1087.00
+
+--- 4. Reading amounts with >> ---
+  read Rs 12.50
+  read Rs 99.99
+  read -Rs 3.05
+  'abc' rejected (failbit set)
+
+--- 5. long long paise vs double rupees : 1,000,000 additions of Rs 0.10 ---
+  Money  result : Rs 100000.00          time 0.270 ms
+  double result : 100000.00000133288   time 1.988 ms
+  double error  : 1.333e-06 rupees
+  double == 100000.00 ? false
+[exit code 0]

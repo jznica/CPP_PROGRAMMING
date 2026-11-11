@@ -1,0 +1,33 @@
+$ g++ -std=c++17 -Wall -Wextra player.cpp -o player && ./player
+--- 1. Prefix vs postfix ---
+  after a = t++ : a = 0:10, t = 0:11
+  after b = ++t : b = 0:12, t = 0:12
+
+--- 2. Roll-over ---
+  0:59 -> 1:00
+  59:59 -> 1:00:00
+  1:59:59 -> 2:00:00
+
+--- 3. Comparisons ---
+  Time(0,1,0) == Time(0,0,60) : true
+  Time(0,3,59) < Time(0,4,0)  : true
+  Time(1,0,0)  < Time(0,59,59): false
+
+--- 4. Playlist ---
+  0. Kanmani Anbodu (0:04)
+  1. Vaathi Coming (0:03)
+  2. Malare (0:05)
+  after rename: list[1] = Vaathi Coming (Remix)
+
+--- 5. Out-of-range access ---
+  error: index -1 out of range [0, 2]
+  list[-1]   -> <invalid track>
+  error: index 3 out of range [0, 2]
+  list[size] -> <invalid track>
+
+--- 6. Playback simulation (track lengths shortened to seconds) ---
+  Playing Kanmani Anbodu [0:04] : 0:00 0:01 0:02 0:03 | done at 0:04
+  Playing Vaathi Coming (Remix) [0:03] : 0:00 0:01 0:02 | done at 0:03
+  Playing Malare [0:05] : 0:00 0:01 0:02 0:03 0:04 | done at 0:05
+  total play time = 0:12
+[exit code 0]

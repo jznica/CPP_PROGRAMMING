@@ -1,0 +1,20 @@
+$ g++ -std=c++17 -Wall -Wextra reorder.cpp -o reorder && ./reorder
+reorder.cpp: In constructor 'BookStock::BookStock(int)':
+reorder.cpp:7:9: warning: 'BookStock::copies' will be initialized after [-Wreorder]
+    7 |     int copies;   // declared SECOND -> initialised SECOND
+      |         ^~~~~~
+reorder.cpp:6:9: warning:   'int BookStock::total' [-Wreorder]
+    6 |     int total;    // declared FIRST  -> initialised FIRST
+      |         ^~~~~
+reorder.cpp:10:14: warning:   when initialized here [-Wreorder]
+   10 |     explicit BookStock(int c) : copies(c), total(copies * 2) {}
+      |              ^~~~~~~~~
+reorder.cpp:10:50: warning: member 'BookStock::copies' is used uninitialized [-Wuninitialized]
+   10 |     explicit BookStock(int c) : copies(c), total(copies * 2) {}
+      |                                                  ^~~~~~
+reorder.cpp: In constructor 'BookStock::BookStock(int)':
+reorder.cpp:10:50: warning: '*this.BookStock::copies' is used uninitialized [-Wuninitialized]
+   10 |     explicit BookStock(int c) : copies(c), total(copies * 2) {}
+      |                                                  ^~~~~~
+copies = 5, total = 0   (expected total = 10)
+[exit code 0]
