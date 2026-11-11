@@ -1,0 +1,7 @@
+$ g++ -std=c++17 -Wall -Wextra oop.cpp -o oop && ./oop
+travel  fare 1000  balance 9000
+travel  fare 3600  balance 5400
+DENIED  fare 2000  balance 5400
+deduct(6000) as emergency charge -> rejected, balance 5400
+recharge(-500) -> rejected
+[exit code 0]

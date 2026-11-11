@@ -1,0 +1,19 @@
+$ g++ -std=c++17 -Wall -Wextra gate_io.cpp -o gate_io && ./gate_io < input_bad.txt
+Number of journeys:   [input error] numbers only
+Number of journeys: Journey 1
+ zone (1-3):   [input error] numbers only
+ zone (1-3):  hour (0-23):  minute (0-59): Journey 2
+ zone (1-3):  hour (0-23):  minute (0-59): Journey 3
+ zone (1-3):   [range error] enter 1..3
+ zone (1-3):  hour (0-23):   [input error] numbers only
+ hour (0-23):  minute (0-59): 
++----+--------+-------+------+------------+
+| #  | Zone   | Time  | Peak | Fare       |
++----+--------+-------+------+------------+
+|  1 | Middle | 08:00 |  yes |   Rs 24.00 |
+|  2 | Middle | 17:45 |  yes |   Rs 24.00 |
+|  3 | Outer  | 20:00 |   no |   Rs 30.00 |
++----+--------+-------+------+------------+
+| Total                          Rs 78.00 |
+  average fare Rs 26.00
+[exit code 0]

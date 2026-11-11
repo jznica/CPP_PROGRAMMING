@@ -1,0 +1,10 @@
+Q3/q3_ambiguous_long.cpp: In function 'int main()':
+Q3/q3_ambiguous_long.cpp:4:33: error: call of overloaded 'charge(long int)' is ambiguous
+    4 | int main() { std::cout << charge(2L) << '\n'; }   // long -> int and long -> double are both conversions: ambiguous
+      |                           ~~~~~~^~~~
+Q3/q3_ambiguous_long.cpp:2:8: note: candidate: 'double charge(double, bool, bool)'
+    2 | double charge(double kg, bool express = false, bool insured = false) { return kg * (express ? 70 : 40) + (insured ? 25 : 0); }
+      |        ^~~~~~
+Q3/q3_ambiguous_long.cpp:3:8: note: candidate: 'double charge(int, bool, bool)'
+    3 | double charge(int grams, bool express = false, bool insured = false) { return grams / 1000.0 * (express ? 70 : 40) + (insured ? 25 : 0); }
+      |        ^~~~~~

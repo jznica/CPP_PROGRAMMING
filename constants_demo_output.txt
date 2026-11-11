@@ -1,0 +1,6 @@
+$ g++ -std=c++17 -Wall -Wextra constants_demo.cpp -o constants_demo && ./constants_demo
+constexpr peak fare (Inner) = 1200 paise
+macro     peak fare (Inner) = 100000 paise
+Zone::Outer index = 2, fare = 3000 paise
+Minimum balance = 50 rupees
+[exit code 0]

@@ -1,0 +1,23 @@
+Array of 7 tickets, capacity 5:
+  Asha: Seat 1
+  Bala: Seat 2
+  Chitra: Seat 3
+  Dev: Seat 4
+  Esha: Seat 5
+  Farook: Waiting
+  Gita: Waiting
+Issued: 5, waiting: 2, seats left: 0
+
+Loop creating 2 more:
+  Loop0: Waiting
+  Loop1: Waiting
+
+bookTrip() called twice:
+  Call1-1: Waiting
+  Call1-2: Waiting
+  issued so far = 5
+  Call2-1: Waiting
+  Call2-2: Waiting
+  issued so far = 5
+Final issued: 5, waiting: 8
+[exit code 0]

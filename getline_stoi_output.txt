@@ -1,0 +1,9 @@
+$ g++ -std=c++17 -Wall -Wextra getline_stoi.cpp -o getline_stoi && ./getline_stoi < hours.txt
+line 1 "8" -> hour 8
+line 2 "abc" -> rejected (not a number)
+line 3 "2x" -> rejected (trailing characters)
+line 4 "17" -> hour 17
+line 5 "99999999999" -> rejected (too large for int)
+line 6 "25" -> rejected (out of range)
+line 7 " 9" -> hour 9
+[exit code 0]

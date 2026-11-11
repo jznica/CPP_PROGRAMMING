@@ -1,0 +1,20 @@
+$ g++ -std=c++17 -Wall -Wextra warnings_demo.cpp -o warnings_demo && ./warnings_demo
+warnings_demo.cpp: In function 'long long int oldFare(Zone)':
+warnings_demo.cpp:9:12: warning: enumeration value 'Outer' not handled in switch [-Wswitch]
+    9 |     switch (z) {                       // Outer forgotten -> 0 paise
+      |            ^
+warnings_demo.cpp: In function 'int main(int, char**)':
+warnings_demo.cpp:19:23: warning: comparison of integer expressions of different signedness: 'int' and 'std::vector<long long int>::size_type' {aka 'long unsigned int'} [-Wsign-compare]
+   19 |     for (int i = 0; i < fares.size(); ++i)   // int compared with size_t
+      |                     ~~^~~~~~~~~~~~~~
+warnings_demo.cpp:22:17: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+   22 |     if (balance = 0)                          // assignment, not comparison
+      |         ~~~~~~~~^~~
+warnings_demo.cpp:24:9: warning: unused variable 'unusedTotal' [-Wunused-variable]
+   24 |     int unusedTotal = 0;                      // dead code: a forgotten total
+      |         ^~~~~~~~~~~
+warnings_demo.cpp:16:26: warning: unused parameter 'argv' [-Wunused-parameter]
+   16 | int main(int argc, char* argv[])
+      |                    ~~~~~~^~~~~~
+1000 2000 3000 0
+[exit code 0]

@@ -1,0 +1,8 @@
+N = 1000000 deposits per run, best of 3
+     K  shift ns/tx  ring ns/tx   speedup  moves/tx(sh)  (ring)  same?  bytes(sh) bytes(rg)
+    10        6.80        1.00       6.8x          9.00      1.00     yes       264       264
+    50       14.75        1.04      14.1x         49.00      1.00     yes      1224      1224
+   200       32.60        1.22      26.7x        198.96      1.00     yes      4824      4824
+  1000      122.70        1.01     121.0x        998.00      1.00     yes     24024     24024
+  5000     2166.26        1.41    1540.8x       4749.05      1.00     yes    120024    120024
+[exit code 0]

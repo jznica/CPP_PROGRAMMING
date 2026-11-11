@@ -1,0 +1,8 @@
+1 charge(2)              -> [charge(int grams, ...)]      0.08
+2 charge(2.0f)           -> [charge(double kg, ...)]      80.00
+3 charge(2.5)            -> [charge(double kg, ...)]      100.00
+4 charge(1500, true)     -> [charge(int grams, ...)]      105.00
+5 charge(1.2, true, true)-> [charge(double kg, ...)]      109.00
+6 charge(Parcel{3,0,1})  -> [charge(const Parcel&)]       145.00
+7 charge('A')            -> [charge(int grams, ...)]      2.60
+[exit code 0]

@@ -1,0 +1,5 @@
+$ g++ -std=c++17 -Wall -Wextra procedural.cpp -o procedural && ./procedural
+travel  zone 0 fare 1000  balance 9000
+travel  zone 2 fare 3600  balance 5400
+after emergency charge balance -600   <-- NEGATIVE BALANCE
+[exit code 0]

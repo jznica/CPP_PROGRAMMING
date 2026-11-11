@@ -1,0 +1,10 @@
+$ g++ -std=c++17 -Wall -Wextra boundary.cpp -o boundary && ./boundary
+Time   Peak  Fare      Balance
+07:59  no    Rs 20.00  Rs 480.00
+08:00  yes   Rs 24.00  Rs 456.00
+09:59  yes   Rs 24.00  Rs 432.00
+10:00  no    Rs 20.00  Rs 412.00
+17:00  yes   Rs 24.00  Rs 388.00
+19:59  yes   Rs 24.00  Rs 364.00
+20:00  no    Rs 20.00  Rs 344.00
+[exit code 0]

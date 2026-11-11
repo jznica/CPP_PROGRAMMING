@@ -1,0 +1,13 @@
+$ g++ -std=c++17 -Wall -Wextra -DSHOW_ERROR -c oop.cpp
+oop.cpp: In function 'int main()':
+oop.cpp:65:10: error: 'long long int SmartCard::balance_' is private within this context
+   65 |     card.balance_ -= 6000;                        // error: balance_ is private
+      |          ^~~~~~~~
+oop.cpp:45:15: note: declared private here
+   45 |     long long balance_ = 0;                       // invariant: balance_ >= 0 always
+      |               ^~~~~~~~
+oop.cpp:65:10: note: field 'long long int SmartCard::balance_' can be accessed via 'long long int SmartCard::balance() const'
+   65 |     card.balance_ -= 6000;                        // error: balance_ is private
+      |          ^~~~~~~~
+      |          balance()
+[compilation failed]

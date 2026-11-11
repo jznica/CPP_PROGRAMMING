@@ -1,0 +1,15 @@
+$ g++ -std=c++17 -Wall -Wextra -DSHOW_ERROR -c fixed.cpp
+fixed.cpp: In function 'int main()':
+fixed.cpp:29:11: error: narrowing conversion of '3.7000000000000002e+0' from 'double' to 'int' [-Wnarrowing]
+   29 |     int x{3.7};                               // narrowing double -> int: compile error with {}
+      |           ^~~
+fixed.cpp:30:25: error: narrowing conversion of '3.65e+3' from 'double' to 'long long int' [-Wnarrowing]
+   30 |     long long fare{36.5 * 100};               // narrowing double -> long long: compile error
+      |                    ~~~~~^~~~~
+fixed.cpp:29:9: warning: unused variable 'x' [-Wunused-variable]
+   29 |     int x{3.7};                               // narrowing double -> int: compile error with {}
+      |         ^
+fixed.cpp:30:15: warning: unused variable 'fare' [-Wunused-variable]
+   30 |     long long fare{36.5 * 100};               // narrowing double -> long long: compile error
+      |               ^~~~
+[compilation failed]

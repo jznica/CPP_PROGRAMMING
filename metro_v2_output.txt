@@ -1,0 +1,29 @@
+$ g++ -std=c++17 -Wall -Wextra metro_v2.cpp -o metro_v2 && ./metro_v2
+ID   Case                                              Expected  Actual  Result
+R1   Inner 12:00 regular                                   1000    1000  PASS
+R2   Outer 09:15 regular peak                              3600    3600  PASS
+R3   Middle 10:00 regular (peak over)                      2000    2000  PASS
+R4   Middle 19:59 regular (peak)                           2400    2400  PASS
+R5   Middle 20:00 regular (peak over)                      2000    2000  PASS
+R6   Outer 08:30 student peak                              2700    2700  PASS
+R7   Middle 18:30 senior peak                              1200    1200  PASS
+A1   Airport 12:00 weekday regular                         6000    6000  PASS
+A2   Airport 08:30 weekday regular (peak)                  7200    7200  PASS
+A3   Airport 12:00 weekend regular                         5400    5400  PASS
+A4   Airport 18:00 weekday senior                          3600    3600  PASS
+W1   Inner 08:30 weekend (discount, no surcharge)           900     900  PASS
+W2   Outer 18:00 weekend student                           2025    2025  PASS
+W3   Middle 12:00 weekend senior                            900     900  PASS
+W4   Inner 12:00 weekend student                            675     675  PASS
+P1   pass Inner->Middle peak: charge                          0       0  PASS
+P2   pass Middle->Middle: charge                              0       0  PASS
+P3   pass, card at Rs 50: covered trip allowed                1       1  PASS
+P4   pass Inner->Outer (Outer not in pass)                 3000    3000  PASS
+P5     ...denied at Rs 50 balance                             0       0  PASS
+P6   pass used in December (expired)                       2000    2000  PASS
+P7   pass with the same zone twice rejected                   1       1  PASS
+P8   unknown zone 7 rejected by table .at()                   1       1  PASS
+P9   balance never below 0 after all trips                 5000    5000  PASS
+
+24 passed, 0 failed
+[exit code 0]

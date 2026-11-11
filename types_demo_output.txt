@@ -1,0 +1,21 @@
+$ g++ -std=c++17 -Wall -Wextra types_demo.cpp -o types_demo && ./types_demo
+Type       size  min                      max                     used for
+bool          1                       0                        1  peak flag, canTravel result
+char          1                    -128                      127  passenger code R/S/C
+int           4            -2.14748e+09              2.14748e+09  hour, minute-of-day, zone index
+unsigned      4                       0              4.29497e+09  (avoided - mixes badly with int)
+long long     8            -9.22337e+18              9.22337e+18  fares, balances, totals (paise)
+float         4            -3.40282e+38              3.40282e+38  (rejected for money)
+double        8           -1.79769e+308             1.79769e+308  averages / reports only
+size_t        8                       0              1.84467e+19  array index, journey count
+
+Worst-case network day = 10800000000 paise; INT_MAX = 2147483647 -> int is NOT enough
+Truncating rupees*100 gives the wrong paise for 4586 of 100000 amounts; first: Rs 0.29 -> 28 paise
+
+       n   double sum (Rs)        exact (Rs)    abs error (Rs)
+      10           1.0000000000             1.00  1.110e-16
+    1000         100.0000000000           100.00  1.407e-12
+   20000        1999.9999999993          2000.00  7.235e-10
+  500000       49999.9999995529         50000.00  4.471e-07
+ 3000000      300000.0000019568        300000.00  1.957e-06
+[exit code 0]

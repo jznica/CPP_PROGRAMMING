@@ -1,0 +1,37 @@
+$ g++ -std=c++17 -Wall -Wextra metro_fare.cpp -o metro_fare && ./metro_fare
+ID   Case                                             Expected   Actual  Result
+N1   Inner  12:00 regular (off-peak)                      1000     1000  PASS
+N2   Middle 12:00 regular (off-peak)                      2000     2000  PASS
+N3   Outer  12:00 regular (off-peak)                      3000     3000  PASS
+N4   Inner  08:30 regular (peak)                          1200     1200  PASS
+N5   Middle 18:30 regular (peak)                          2400     2400  PASS
+N6   Outer  09:15 regular (peak)                          3600     3600  PASS
+N7   Inner  12:00 student                                  750      750  PASS
+N8   Outer  08:30 student (peak)                          2700     2700  PASS
+N9   Middle 18:30 senior (peak)                           1200     1200  PASS
+N10  Outer  12:00 senior                                  1500     1500  PASS
+B1   Middle 07:59 (just before peak)                      2000     2000  PASS
+B2   Middle 08:00 (peak starts)                           2400     2400  PASS
+B3   Middle 09:59 (last peak minute)                      2400     2400  PASS
+B4   Middle 10:00 (peak over)                             2000     2000  PASS
+B5   Middle 17:00 (peak starts)                           2400     2400  PASS
+B6   Middle 19:59 (last peak minute)                      2400     2400  PASS
+B7   Middle 20:00 (peak over)                             2000     2000  PASS
+B8   Inner  00:00 (midnight)                              1000     1000  PASS
+B9   Rs 60 card, Rs 10 fare -> leaves Rs 50 (allow)          1        1  PASS
+B10    ...balance afterwards                              5000     5000  PASS
+B11  Rs 59.99 card, Rs 10 fare (deny)                        0        0  PASS
+B12    ...balance unchanged                               5999     5999  PASS
+I1   zone number 4 rejected                                  0        0  PASS
+I2   zone number 0 rejected                                  0        0  PASS
+I3   recharge of -Rs 5 rejected                              0        0  PASS
+I4     ...balance unchanged                              10000    10000  PASS
+I5   hour typed as letters "ab:cd" rejected                  0        0  PASS
+I6   time "24:00" rejected                                   0        0  PASS
+I7   negative fare cannot be deducted                        0        0  PASS
+I8   negative opening balance throws                         1        1  PASS
+H1   5-journey total (hand: Rs 94.50)                     9450     9450  PASS
+H2   5-journey closing balance (hand: Rs 105.50)         10550    10550  PASS
+
+32 passed, 0 failed
+[exit code 0]

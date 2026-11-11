@@ -1,0 +1,7 @@
+$ g++ -std=c++17 -Wall -Wextra fixed.cpp -o fixed && ./fixed
+3 3.5
+C 68 D
+true
+s < u
+peak fare = 3600 paise
+[exit code 0]

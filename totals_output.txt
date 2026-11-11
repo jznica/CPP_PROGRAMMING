@@ -1,0 +1,11 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 totals.cpp -o totals && ./totals
+Journey mix: 18 combinations (3 zones x peak/off-peak x 3 passenger types), repeated
+
+   Journeys  long long paise (Rs)         double rupees      float rupees  int paise (wrapped)
+      20000             329997.00         329997.000000         329997.00             32999700
+             double - exact = 0.000e+00 Rs,  float - exact = 0.00 Rs
+     500000            8250015.00        8250015.000000        8250015.00            825001500
+             double - exact = 0.000e+00 Rs,  float - exact = 0.00 Rs
+    3000000           49500033.00       49500033.000000       49417908.00            655036004
+             double - exact = 0.000e+00 Rs,  float - exact = -82125.00 Rs,  int overflows at journey 1301505
+[exit code 0]

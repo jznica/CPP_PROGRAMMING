@@ -1,0 +1,5 @@
+$ g++ -std=c++17 -Wall -Wextra complete.cpp -o complete && ./complete
+Fare Rs 10.00 balance Rs 90
+Fare Rs 36.00 balance Rs 54
+Denied (low balance) balance Rs 54
+[exit code 0]

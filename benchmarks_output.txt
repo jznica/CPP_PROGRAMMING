@@ -1,0 +1,12 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 benchmarks.cpp -o benchmarks && ./benchmarks
+--- Task 5: peak check (60000000 checks) ---
+  expression 1.1291 ns, table 1.00077 ns per check, sizeof(table) = 24 bytes
+--- Task 6: base fare lookup (60000000 lookups) ---
+  switch 0.582878 ns, array 0.454101 ns per lookup, sizeof(array) = 24 bytes
+--- Task 8: reading 1,000,000 short lines ---
+  >> 25.8481 ns, getline + stoi 22.8388 ns per value
+--- Task 10: one addition into the day total (60000000 additions) ---
+  int 0.313621 ns, long long 0.310386 ns, double 2.48771 ns per addition
+  sizes: int 4, long long 8, double 8 bytes
+(checksum 632)
+[exit code 0]

@@ -1,0 +1,19 @@
+Q3/q3_ambiguous.cpp: In function 'int main()':
+Q3/q3_ambiguous.cpp:13:24: error: call of overloaded 'charge(double)' is ambiguous
+   13 |     std::cout << charge(2.5) << '\n';        // ambiguous: #1 or #3
+      |                  ~~~~~~^~~~~
+Q3/q3_ambiguous.cpp:4:8: note: candidate: 'double charge(double)'
+    4 | double charge(double weight)                                      { return weight * 40; }
+      |        ^~~~~~
+Q3/q3_ambiguous.cpp:6:8: note: candidate: 'double charge(double, bool, bool)'
+    6 | double charge(double weight, bool express = false, bool insured = false)
+      |        ^~~~~~
+Q3/q3_ambiguous.cpp:14:24: error: call of overloaded 'charge(double, bool)' is ambiguous
+   14 |     std::cout << charge(2.5, true) << '\n';  // ambiguous: #2 or #3
+      |                  ~~~~~~^~~~~~~~~~~
+Q3/q3_ambiguous.cpp:5:8: note: candidate: 'double charge(double, bool)'
+    5 | double charge(double weight, bool express)                        { return weight * (express ? 70 : 40); }
+      |        ^~~~~~
+Q3/q3_ambiguous.cpp:6:8: note: candidate: 'double charge(double, bool, bool)'
+    6 | double charge(double weight, bool express = false, bool insured = false)
+      |        ^~~~~~

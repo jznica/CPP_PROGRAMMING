@@ -1,0 +1,14 @@
+withdraw 999999 accepted? false
+Mini-statement  A/c SB-1029  (last 10)
+  1. WDL      300   bal     5000
+  2. DEP      400   bal     5400
+  3. DEP      500   bal     5900
+  4. WDL      600   bal     5300
+  5. DEP      700   bal     6000
+  6. DEP      800   bal     6800
+  7. WDL      900   bal     5900
+  8. DEP     1000   bal     6900
+  9. DEP     1100   bal     8000
+ 10. WDL     1200   bal     6800
+Current balance: 6800
+[exit code 0]

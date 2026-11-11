@@ -1,0 +1,8 @@
+$ g++ -std=c++17 -Wall -Wextra impact_demo.cpp -o impact_demo && ./impact_demo
+impact_demo.cpp: In function 'long long int fare(Zone, bool)':
+impact_demo.cpp:10:12: warning: enumeration value 'Airport' not handled in switch [-Wswitch]
+   10 |     switch (z) {
+      |            ^
+Airport off-peak fare = 0 paise
+Airport peak fare     = 0 paise
+[exit code 0]

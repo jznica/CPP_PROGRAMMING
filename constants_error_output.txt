@@ -1,0 +1,8 @@
+$ g++ -std=c++17 -Wall -Wextra -DSHOW_ERROR -c constants_demo.cpp
+constants_demo.cpp: In function 'int main()':
+constants_demo.cpp:41:21: error: cannot convert 'Zone' to 'int' in initialization
+   41 |     int bad = Zone::Inner;            // error: enum class does not convert to int
+      |               ~~~~~~^~~~~
+      |                     |
+      |                     Zone
+[compilation failed]

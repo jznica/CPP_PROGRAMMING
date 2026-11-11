@@ -1,0 +1,30 @@
+ALGORITHM ComputeFare
+INPUT  : zone ∈ {Inner, Middle, Outer}, minuteOfDay (0..1439), passenger
+OUTPUT : fare in paise (integer)
+BEGIN
+  SELECT CASE zone
+     CASE Inner  : base ← 1000
+     CASE Middle : base ← 2000
+     CASE Outer  : base ← 3000
+  END SELECT
+  IF (minuteOfDay ≥ 480 AND minuteOfDay < 600) OR
+     (minuteOfDay ≥ 1020 AND minuteOfDay < 1200) THEN
+       surcharge ← 20
+  ELSE surcharge ← 0
+  END IF
+  concession ← ConcessionPercent(passenger)            // 0, 25 or 50
+  fare ← (base × (100 + surcharge) × (100 − concession) + 5000) DIV 10000
+  RETURN fare
+END
+
+ALGORITHM ProcessDay
+INPUT : card, list of journeys
+BEGIN
+  FOR EACH j IN journeys DO
+     IF j is invalid THEN report "invalid"; CONTINUE END IF
+     f ← ComputeFare(j)
+     IF card.balance − f ≥ 5000 THEN card.balance ← card.balance − f; print fare, balance
+     ELSE print "Denied (low balance)"
+     END IF
+  END FOR
+END
