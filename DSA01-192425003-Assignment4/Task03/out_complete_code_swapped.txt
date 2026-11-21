@@ -1,0 +1,21 @@
+$ g++ -std=c++17 -Wall -Wextra  -o complete_code_swapped complete_code_swapped.cpp && ./complete_code_swapped
+complete_code_swapped.cpp: In constructor 'Student::Student(const std::string&, int, long long int, const std::string&, int)':
+complete_code_swapped.cpp:24:13: warning: 'Student::home' will be initialized after [-Wreorder]
+   24 |     Address home;
+      |             ^~~~
+complete_code_swapped.cpp:23:15: warning:   'long long int Student::regNo' [-Wreorder]
+   23 |     long long regNo;
+      |               ^~~~~
+complete_code_swapped.cpp:28:5: warning:   when initialized here [-Wreorder]
+   28 |     Student(const std::string& n, int a, long long r, const std::string& city, int pin)
+      |     ^~~~~~~
+complete_code_swapped.cpp:23:15: warning: 'Student::regNo' will be initialized after [-Wreorder]
+   23 |     long long regNo;
+      |               ^~~~~
+complete_code_swapped.cpp:29:49: warning:   base 'Person' [-Wreorder]
+   29 |         : home(city, pin), regNo(r), Person(n, a) {}   // order swapped
+      |                                                 ^
+complete_code_swapped.cpp:28:5: warning:   when initialized here [-Wreorder]
+   28 |     Student(const std::string& n, int a, long long r, const std::string& city, int pin)
+      |     ^~~~~~~
+192311001 Kavya (19) Salem-636001

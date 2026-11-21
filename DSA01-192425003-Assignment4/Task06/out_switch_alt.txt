@@ -1,0 +1,4 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 -o switch_alt switch_alt.cpp && ./switch_alt
+sizeof(SwitchVehicle) = 80 (same for every kind)
+sizeof Bicycle/TwoWheeler/Car/ElectricCar (virtual) = 48/72/72/80
+avg time per charge(): switch 2.92769 ns, virtual 3.04106 ns  (20 million calls each, -O2)

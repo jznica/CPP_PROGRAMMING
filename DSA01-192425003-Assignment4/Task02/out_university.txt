@@ -1,0 +1,5 @@
+$ g++ -std=c++17 -Wall -Wextra  -o university university.cpp && ./university
+1 Kavya 98400 | B.Tech AIML CGPA 8.6
+2 Dr. Kumar 98401 | CSE Rs.95000
+3 Arun 98402 | M.Tech CGPA 8.9 | CSE Rs.20000
+4 Divya 98403 | PhD CGPA 9.1 | Fellowship DST-INSPIRE Rs.37000

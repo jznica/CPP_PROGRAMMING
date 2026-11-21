@@ -1,0 +1,9 @@
+$ g++ -std=c++17 -Wall -Wextra ambiguity_demo.cpp
+ambiguity_demo.cpp: In function 'int main()':
+ambiguity_demo.cpp:11:21: error: request for member 'name' is ambiguous
+   11 |     std::cout << ta.name << '\n';            // error: request for member 'name' is ambiguous
+      |                     ^~~~
+ambiguity_demo.cpp:4:29: note: candidates are: 'std::string Person::name'
+    4 | struct Person { std::string name = "Arun"; };
+      |                             ^~~~
+ambiguity_demo.cpp:4:29: note:                 'std::string Person::name'

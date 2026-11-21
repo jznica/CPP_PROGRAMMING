@@ -1,0 +1,13 @@
+$ g++ -std=c++17 -Wall -Wextra  -o buggy buggy.cpp && ./buggy
+rates:
+  3.5
+  3.5
+deleting through Account*:
+  ~Account
+  ~Account
+slicing copy:
+  ~SeniorAccount (history freed)
+  ~Account
+  rate of copy in vector = 3.5
+end of main
+  ~Account

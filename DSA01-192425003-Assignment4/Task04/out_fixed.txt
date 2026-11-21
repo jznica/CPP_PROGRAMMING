@@ -1,0 +1,11 @@
+$ g++ -std=c++17 -Wall -Wextra  -o fixed fixed.cpp && ./fixed
+rates:
+  3.5
+  4
+  rate through reference = 4
+end of main (automatic cleanup follows):
+  ~SeniorAccount (history freed)
+  ~Account
+  ~Account
+  ~SeniorAccount (history freed)
+  ~Account

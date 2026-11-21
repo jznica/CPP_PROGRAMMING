@@ -1,0 +1,5 @@
+$ g++ -std=c++17 -Wall -Wextra  -o pointer_member_alt pointer_member_alt.cpp && ./pointer_member_alt
+sizeof(StudentObj) = 48 (Address embedded)
+sizeof(StudentPtr) = 16 + heap block of 40
+192311001 Salem-636001 | 192311001 Salem-636001
+1e6 constructions: member object 44 ms, pointer+new 60 ms

@@ -1,0 +1,51 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -o buggy_asan buggy.cpp && ./buggy_asan
+=================================================================
+==592==ERROR: AddressSanitizer: new-delete-type-mismatch on 0x502000000030 in thread T0:
+  object passed to delete has wrong type:
+  size of the allocated type:   8 bytes;
+  size of the deallocated type: 1 bytes.
+    #0 0x7fedd44ff5e8 in operator delete(void*, unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:164
+    #1 0x556c4adec687 in main /home/claude/repo/Task04/buggy.cpp:24
+    #2 0x7fedd3c2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7fedd3c2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x556c4adec304 in _start (/home/claude/repo/Task04/buggy_asan+0x2304) (BuildId: e455ad7b43aa81953ee4b2a66fad4450f8f23dc2)
+
+0x502000000030 is located 0 bytes inside of 8-byte region [0x502000000030,0x502000000038)
+allocated by thread T0 here:
+    #0 0x7fedd44fe548 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x556c4adec4c4 in main /home/claude/repo/Task04/buggy.cpp:20
+    #2 0x7fedd3c2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7fedd3c2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x556c4adec304 in _start (/home/claude/repo/Task04/buggy_asan+0x2304) (BuildId: e455ad7b43aa81953ee4b2a66fad4450f8f23dc2)
+
+SUMMARY: AddressSanitizer: new-delete-type-mismatch ../../../../src/libsanitizer/asan/asan_new_delete.cpp:164 in operator delete(void*, unsigned long)
+==592==HINT: if you don't care about these errors you may set ASAN_OPTIONS=new_delete_type_mismatch=0
+==592==ABORTING
+
+$ ASAN_OPTIONS=new_delete_type_mismatch=0 ./buggy_asan
+
+=================================================================
+==593==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 800 byte(s) in 1 object(s) allocated from:
+    #0 0x7f7b53afe6c8 in operator new[](unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:98
+    #1 0x557c7ec19a32 in SeniorAccount::SeniorAccount() /home/claude/repo/Task04/buggy.cpp:11
+    #2 0x557c7ec194d6 in main /home/claude/repo/Task04/buggy.cpp:20
+    #3 0x7f7b5322a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7f7b5322a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x557c7ec19304 in _start (/home/claude/repo/Task04/buggy_asan+0x2304) (BuildId: e455ad7b43aa81953ee4b2a66fad4450f8f23dc2)
+
+SUMMARY: AddressSanitizer: 800 byte(s) leaked in 1 allocation(s).
+
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -o fixed_asan fixed.cpp && ./fixed_asan
+rates:
+  3.5
+  4
+  rate through reference = 4
+end of main (automatic cleanup follows):
+  ~SeniorAccount (history freed)
+  ~Account
+  ~Account
+  ~SeniorAccount (history freed)
+  ~Account
+(no sanitizer errors, exit code 0)

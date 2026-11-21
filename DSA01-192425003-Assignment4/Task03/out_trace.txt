@@ -1,0 +1,32 @@
+$ g++ -std=c++17 -Wall -Wextra  -o trace trace.cpp && ./trace
+--- Student ---
+  Address()
+  Person()
+  Course()
+  Student()
+  ~Student()
+  ~Course()
+  ~Person()
+  ~Address()
+--- Staff ---
+  Address()
+  Person()
+  Staff()
+  ~Staff()
+  ~Person()
+  ~Address()
+--- TeachingAssistant ---
+  Address()
+  Person()
+  Course()
+  Student()
+  Staff()
+  TeachingAssistant()
+  [Arun, Chennai-602105, CSA14, CGPA 8.9, Rs.20000]
+  ~TeachingAssistant()
+  ~Staff()
+  ~Student()
+  ~Course()
+  ~Person()
+  ~Address()
+sizeof(TeachingAssistant) = 144

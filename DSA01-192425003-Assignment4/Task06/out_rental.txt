@@ -1,0 +1,38 @@
+$ g++ -std=c++17 -Wall -Wextra -o rental main.cpp && ./rental
+---- Fleet (5 vehicles) ----
+Bicycle     BC-01        Rs.150   /day  available 
+TwoWheeler  TN22AB1234   Rs.500   /day  available  level 80%  service 15-01-2027
+Car         TN09CD5678   Rs.2200  /day  available  level 90%  service 10-03-2027  7 seats
+ElectricCar TN01EV0042   Rs.2800  /day  available  level 95%  service 05-02-2027  5 seats  40 kWh
+Car         TN10XY0001   Rs.1800  /day  available  level 70%  service 01-11-2026  5 seats
+
+== Renting each type ==
+RENT   BC-01        OK for 2 day(s)
+RENT   TN22AB1234   OK for 3 day(s)
+RENT   TN09CD5678   OK for 2 day(s)
+RENT   TN01EV0042   OK for 4 day(s)
+RENT   TN10XY0001   REFUSED (not found, already rented, low level or service overdue)
+RENT   BC-01        REFUSED (not found, already rented, low level or service overdue)
+---- Fleet (5 vehicles) ----
+Bicycle     BC-01        Rs.150   /day  RENTED    
+TwoWheeler  TN22AB1234   Rs.500   /day  RENTED     level 80%  service 15-01-2027
+Car         TN09CD5678   Rs.2200  /day  RENTED     level 90%  service 10-03-2027  7 seats
+ElectricCar TN01EV0042   Rs.2800  /day  RENTED     level 95%  service 05-02-2027  5 seats  40 kWh
+Car         TN10XY0001   Rs.1800  /day  available  level 70%  service 01-11-2026  5 seats
+
+== Returning (one late) ==
+RETURN BC-01        bill Rs.300.00  (late charge Rs.0.00)
+RETURN TN22AB1234   bill Rs.1972.50  (late charge Rs.0.00)
+RETURN TN09CD5678   bill Rs.13700.00  (late charge Rs.6600.00)
+RETURN TN01EV0042   bill Rs.11920.00  (late charge Rs.0.00)
+
+== Extension: ElectricBus added without changing existing classes ==
+RENT   TN07EB0900   OK for 1 day(s)
+RETURN TN07EB0900   bill Rs.29600.00  (late charge Rs.18000.00)
+---- Fleet (6 vehicles) ----
+Bicycle     BC-01        Rs.150   /day  available 
+TwoWheeler  TN22AB1234   Rs.500   /day  available  level 80%  service 15-01-2027
+Car         TN09CD5678   Rs.2200  /day  available  level 90%  service 10-03-2027  7 seats
+ElectricCar TN01EV0042   Rs.2800  /day  available  level 95%  service 05-02-2027  5 seats  40 kWh
+Car         TN10XY0001   Rs.1800  /day  available  level 70%  service 01-11-2026  5 seats
+ElectricBus TN07EB0900   Rs.9000  /day  available  level 85%  service 20-12-2026  40 seats  300 kWh

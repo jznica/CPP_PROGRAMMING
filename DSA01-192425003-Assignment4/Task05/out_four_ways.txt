@@ -1,0 +1,11 @@
+$ g++ -std=c++17 -Wall -Wextra  -o four_ways four_ways.cpp && ./four_ways
+(a) by name      : Kavya 180.00
+(b) pointer ->   : Kavya 360.00
+(c) reference    : Kavya 342.00
+(d) new/delete   : Ravi 75.00
+this == &a ?     : true
+Highest total    : Meena 970.00
+  active[0] Kavya 342.00
+  active[1] Ravi 75.00
+  active[2] Meena 970.00
+  active[3] Arun 40.00

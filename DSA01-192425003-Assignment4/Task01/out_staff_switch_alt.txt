@@ -1,0 +1,6 @@
+$ g++ -std=c++17 -Wall -Wextra  -o staff_switch_alt staff_switch_alt.cpp && ./staff_switch_alt
+switch pay: 128600 48000
+sizeof(StaffSwitch)   = 72 bytes (all categories)
+sizeof(Prof)          = 64 bytes
+sizeof(Lab)           = 56 bytes
+sizeof(Guest)         = 64 bytes

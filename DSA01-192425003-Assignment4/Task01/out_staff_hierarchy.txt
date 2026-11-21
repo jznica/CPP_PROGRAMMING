@@ -1,0 +1,6 @@
+$ g++ -std=c++17 -Wall -Wextra  -o staff_hierarchy staff_hierarchy.cpp && ./staff_hierarchy
+Professor    Anitha   id=101  pay=128600.00
+LabAssistant Ravi     id=202  pay=42600.00
+GuestFaculty Meena    id=303  pay=48000.00
+Visiting     Dr. Rao  id=404  pay=30000.00
+Total payroll = 249200.00

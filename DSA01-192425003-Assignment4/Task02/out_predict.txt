@@ -1,0 +1,2 @@
+$ g++ -std=c++17 -Wall -Wextra  -o predict predict.cpp && ./predict
+Person Student Staff TA 

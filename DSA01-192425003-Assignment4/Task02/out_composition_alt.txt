@@ -1,0 +1,5 @@
+$ g++ -std=c++17 -Wall -Wextra  -o composition_alt composition_alt.cpp && ./composition_alt
+sizeof(Person)             = 72
+sizeof(VTA)  virtual bases = 168  (one Person)
+sizeof(CTA)  composition   = 224  (two Persons)
+Arun | Arun vs Arun K

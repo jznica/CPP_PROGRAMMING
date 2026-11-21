@@ -1,0 +1,6 @@
+$ g++ -std=c++17 -Wall -Wextra  -o vector_alt vector_alt.cpp && ./vector_alt
+sizeof(Cart) = 416 bytes per object in vector<Cart>
+sizeof(Cart*) = 8 bytes per slot in Cart* array
+capacity before = 1
+capacity after  = 2
+old pointer still valid? false  (false = dangling pointer)

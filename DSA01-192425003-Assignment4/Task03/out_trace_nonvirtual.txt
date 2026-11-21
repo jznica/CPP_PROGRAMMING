@@ -1,0 +1,36 @@
+$ g++ -std=c++17 -Wall -Wextra -o trace_nonvirtual trace_nonvirtual.cpp && ./trace_nonvirtual
+--- Student ---
+  Address()
+  Person()
+  Course()
+  Student()
+  ~Student()
+  ~Course()
+  ~Person()
+  ~Address()
+--- Staff ---
+  Address()
+  Person()
+  Staff()
+  ~Staff()
+  ~Person()
+  ~Address()
+--- TeachingAssistant ---
+  Address()
+  Person()
+  Course()
+  Student()
+  Address()
+  Person()
+  Staff()
+  TeachingAssistant()
+  [Arun, Chennai-602105, CSA14, CGPA 8.9, Rs.20000]
+  ~TeachingAssistant()
+  ~Staff()
+  ~Person()
+  ~Address()
+  ~Student()
+  ~Course()
+  ~Person()
+  ~Address()
+sizeof(TeachingAssistant) = 208
