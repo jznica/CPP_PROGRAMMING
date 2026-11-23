@@ -1,0 +1,54 @@
+$ g++ -std=c++17 -Wall -Wextra b1_validate.cpp -o b1_validate
+[exit status 0]
+
+$ ./b1_validate bills.txt
+B1.1  bill x payer settlement (polymorphic Bill* and Payer*)
+-------------------------------------------------------------------------------
+OP   #1 Ravi     total    1700.00
+     SelfPay                covered       0.00  patient    1700.00  PASS
+     Insurance(StarHealth)  covered    1530.00  patient     170.00  PASS
+     Scheme(CMCHIS)         covered    1000.00  patient     700.00  PASS
+IP   #2 Meena    total   52000.00
+     SelfPay                covered       0.00  patient   52000.00  PASS
+     Insurance(StarHealth)  covered   46800.00  patient    5200.00  PASS
+     Scheme(CMCHIS)         covered   30000.00  patient   22000.00  PASS
+DC   #3 Arun     total   18000.00
+     SelfPay                covered       0.00  patient   18000.00  PASS
+     Insurance(StarHealth)  covered   16200.00  patient    1800.00  PASS
+     Scheme(CMCHIS)         covered   15000.00  patient    3000.00  PASS
+ER   #4 Lakshmi  total    4800.00
+     SelfPay                covered       0.00  patient    4800.00  PASS
+     Insurance(StarHealth)  covered    4320.00  patient     480.00  PASS
+     Scheme(CMCHIS)         covered    4800.00  patient       0.00  PASS
+-------------------------------------------------------------------------------
+Day total (A1.3 loop over Bill*): 76500.00   expected 76500.00 PASS
+12/12 settlements match hand calculation
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined b1_validate.cpp -o b1_validate_asan
+[exit status 0]
+
+$ ./b1_validate_asan bills.txt
+B1.1  bill x payer settlement (polymorphic Bill* and Payer*)
+-------------------------------------------------------------------------------
+OP   #1 Ravi     total    1700.00
+     SelfPay                covered       0.00  patient    1700.00  PASS
+     Insurance(StarHealth)  covered    1530.00  patient     170.00  PASS
+     Scheme(CMCHIS)         covered    1000.00  patient     700.00  PASS
+IP   #2 Meena    total   52000.00
+     SelfPay                covered       0.00  patient   52000.00  PASS
+     Insurance(StarHealth)  covered   46800.00  patient    5200.00  PASS
+     Scheme(CMCHIS)         covered   30000.00  patient   22000.00  PASS
+DC   #3 Arun     total   18000.00
+     SelfPay                covered       0.00  patient   18000.00  PASS
+     Insurance(StarHealth)  covered   16200.00  patient    1800.00  PASS
+     Scheme(CMCHIS)         covered   15000.00  patient    3000.00  PASS
+ER   #4 Lakshmi  total    4800.00
+     SelfPay                covered       0.00  patient    4800.00  PASS
+     Insurance(StarHealth)  covered    4320.00  patient     480.00  PASS
+     Scheme(CMCHIS)         covered    4800.00  patient       0.00  PASS
+-------------------------------------------------------------------------------
+Day total (A1.3 loop over Bill*): 76500.00   expected 76500.00 PASS
+12/12 settlements match hand calculation
+[exit status 0]
+

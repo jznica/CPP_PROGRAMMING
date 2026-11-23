@@ -1,0 +1,20 @@
+$ g++ -std=c++17 -Wall -Wextra complete_the_code.cpp -o complete_the_code
+[exit status 0]
+
+$ ./complete_the_code
+approved 40000
+audit: exceeds cover
+claim rejected: exceeds cover
+error: negative amount
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra complete_the_code_throw_e.cpp -o complete_the_code_throw_e
+[exit status 0]
+
+$ ./complete_the_code_throw_e
+approved 40000
+audit: exceeds cover
+claim rejected: exceeds cover
+error: negative amount
+[exit status 0]
+

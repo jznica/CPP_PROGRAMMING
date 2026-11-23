@@ -1,0 +1,9 @@
+# payer | bill line          (deliberately constructed error conditions)
+INS    | OP 10 P101 500 1200
+INS    | OP 11 P101 -500 1200
+INS    | IP 12 P102 30 2500 40000 4500
+SCHEME | DC 13 P103 KNEE
+INS    | ER 14 P104 2000 abc 800
+SCHEME | OP 15 P999 300 0
+SCHEME | DC 16 P105 HERNIA
+SCHEME | ER 17 P104 1500 2 600

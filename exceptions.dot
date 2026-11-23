@@ -1,0 +1,19 @@
+digraph EX {
+  graph [rankdir=TB, fontname="Helvetica", nodesep=0.25, ranksep=0.45];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10, fillcolor="#eef6ff"];
+  edge  [dir=back, arrowtail=onormal, color="#333333"];
+  std [label="std::exception\nwhat() const noexcept", fillcolor="#eeeeee"];
+  rt  [label="std::runtime_error", fillcolor="#eeeeee"];
+  la  [label="std::logic_error", fillcolor="#eeeeee"];
+  ia  [label="std::invalid_argument\n(thrown by std::stod / stoi:\ntext where a number is expected)", fillcolor="#eeeeee"];
+  oor [label="std::out_of_range", fillcolor="#eeeeee"];
+  ba  [label="std::bad_alloc\n(memory allocation failure)", fillcolor="#eeeeee"];
+  be  [label="BillingError\nany billing-domain failure", fillcolor="#fff4e6"];
+  ic  [label="InvalidChargeError\nnegative charge / rate / days,\nwrong number of fields"];
+  up  [label="UnknownPackageError\npackage code not in catalogue"];
+  rn  [label="RecordNotFoundError\nmissing patient record"];
+  ce  [label="ClaimError\npayer rejects the claim\n(e.g. package not in scheme)"];
+  cx  [label="CoverExceededError\nclaim above insurance cover"];
+  std -> rt; std -> la; std -> ba; la -> ia; la -> oor; rt -> be;
+  be -> ic; be -> up; be -> rn; be -> ce; ce -> cx;
+}

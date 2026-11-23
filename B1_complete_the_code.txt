@@ -1,0 +1,27 @@
+$ g++ -std=c++17 -Wall -Wextra complete_the_code.cpp -o complete_the_code
+[exit status 0]
+
+$ ./complete_the_code
+OP Ravi: 1700
+IP Meena: 47500
+Total 49200
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer complete_the_code.cpp -o complete_the_code_asan && ./complete_the_code_asan
+OP Ravi: 1700
+IP Meena: 47500
+Total 49200
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra experiments/complete_nonvirtual_total.cpp -o /dev/null
+experiments/complete_nonvirtual_total.cpp:14:12: error: initializer specified for non-virtual method 'double Bill::total() const'
+   14 |     double total() const = 0;   // EXPERIMENT: virtual removed
+      |            ^~~~~
+experiments/complete_nonvirtual_total.cpp:30:12: error: 'double OutPatient::total() const' marked 'override', but does not override
+   30 |     double total() const override { return consultation + tests; }
+      |            ^~~~~
+experiments/complete_nonvirtual_total.cpp:42:12: error: 'double InPatient::total() const' marked 'override', but does not override
+   42 |     double total() const override { return days * perDay + surgery; }
+      |            ^~~~~
+[exit status 1]
+

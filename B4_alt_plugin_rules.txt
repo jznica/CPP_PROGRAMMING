@@ -1,0 +1,22 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 alt_plugin_rules.cpp -o alt_plugin_rules
+[exit status 0]
+
+$ ./alt_plugin_rules
+loaded 5 rules from rules.cfg:
+  OP   : 2 terms, 2 factors
+  IP   : 3 terms, 4 factors
+  DC   : 1 terms, 1 factors
+  ER   : 2 terms, 3 factors
+  TELE : 2 terms, 3 factors
+approx. memory for all rules: 803 bytes (shared by all bills)
+per bill: DataBill = 40 bytes; virtual objects = 24..40 bytes + 8-byte pointer
+
+check: TELE(20 min x 30 + 99) = 699.00 (expected 699.00), IP = 52000.00 (expected 52000.00)
+
+1000000 bills, -O2, median of 21 runs
+  virtual call      :   10.48 ms   10.48 ns/bill  total 3753970707614.32
+  rule interpreter  :   14.73 ms   14.73 ns/bill  total 3753970707614.32
+  totals agree: yes, interpreter / virtual = 1.41x
+  200,000 bills/day cost: virtual 2.097 ms, interpreter 2.946 ms
+[exit status 0]
+

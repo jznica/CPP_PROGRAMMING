@@ -1,0 +1,19 @@
+digraph CF {
+  graph [rankdir=TB, fontname="Helvetica", nodesep=0.3, ranksep=0.35];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10];
+  edge  [fontname="Helvetica", fontsize=9, color="#333333"];
+  main [label="Level 4  main()  - top level\ncatch(const BillingError&) / catch(const std::invalid_argument&)\ncatch(const std::bad_alloc&) / catch(const std::exception&) / catch(...)\n→ REPORT to the user (line number + reason), continue with next line", fillcolor="#ffe0e0"];
+  line [label="Level 3  processLine()\nno try block: RAII objects (unique_ptr, ScopeTrace) clean up\nduring unwinding", fillcolor="#f3f3f3"];
+  fb [label="Level 2b  BillingDesk::settleOrFallback()\ncatch(const ClaimError&) → RECOVER:\nsettle with SelfPay, note the reason (bill not lost)", fillcolor="#e2f5e2"];
+  st [label="Level 2a  BillingDesk::settle()\ncatch(const ClaimError&) → LOG to audit trail,\nthen  throw;  (same object, dynamic type kept)", fillcolor="#fff4d6"];
+  py [label="Level 1  Payer::amountCovered()\nTHROW CoverExceededError / ClaimError", fillcolor="#eef6ff"];
+  pb [label="Level 1  parseBill() / Bill constructors / registry / catalogue\nTHROW InvalidChargeError, UnknownPackageError,\nRecordNotFoundError, std::invalid_argument (stod)", fillcolor="#eef6ff"];
+  main -> line [label=" calls"];
+  line -> pb [label=" calls"];
+  line -> fb [label=" calls"];
+  fb -> st [label=" calls"];
+  st -> py [label=" calls"];
+  py -> st [label=" ClaimError", color="#c0392b", fontcolor="#c0392b", style=bold, constraint=false];
+  st -> fb [label=" rethrow", color="#c0392b", fontcolor="#c0392b", style=bold, constraint=false];
+  pb -> main [label=" not caught locally:\n propagates to main", color="#c0392b", fontcolor="#c0392b", style=bold, constraint=false];
+}

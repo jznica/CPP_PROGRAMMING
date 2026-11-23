@@ -1,0 +1,40 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer alt_manual_delete.cpp -o alt_manual_delete
+[exit status 0]
+
+$ ./alt_manual_delete
+bill 1 manual ok 500
+bill 1 RAII   ok 500
+  manual: claim above cover -> delete[] in catch
+bill 2 manual failed: claim above cover
+bill 2 RAII   failed: claim above cover
+bill 3 manual failed: missing patient record
+bill 3 RAII   failed: missing patient record
+
+=================================================================
+==992==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 8000 byte(s) in 1 object(s) allocated from:
+    #0 0x7fc917cfe6c8 in operator new[](unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:98
+    #1 0x562039cf6648 in processManual(int) TaskA5/alt_manual_delete.cpp:21
+    #2 0x562039cf6a5b in main TaskA5/alt_manual_delete.cpp:55
+    #3 0x7fc91742a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #4 0x7fc91742a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #5 0x562039cf6484 in _start (TaskA5/alt_manual_delete+0x2484) (BuildId: 4e9dc85e91833f8bdb78473af3e6be98ddae7e2a)
+
+SUMMARY: AddressSanitizer: 8000 byte(s) leaked in 1 allocation(s).
+[exit status 1]
+
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer -DFIXED alt_manual_delete.cpp -o alt_manual_delete_fixed
+[exit status 0]
+
+$ ./alt_manual_delete_fixed
+bill 1 manual ok 500
+bill 1 RAII   ok 500
+  manual: claim above cover -> delete[] in catch
+bill 2 manual failed: claim above cover
+bill 2 RAII   failed: claim above cover
+  manual: missing record -> delete[] in second catch
+bill 3 manual failed: missing patient record
+bill 3 RAII   failed: missing patient record
+[exit status 0]
+

@@ -1,0 +1,11 @@
+$ cd ../TaskB1 && g++ -std=c++17 -Wall -Wextra b1_validate.cpp -o b1_validate && ./b1_validate bills.txt | tail -2
+Day total (A1.3 loop over Bill*): 76500.00   expected 76500.00 PASS
+12/12 settlements match hand calculation
+[exit status 0]
+
+$ cd ../TaskB2 && g++ -std=c++17 -Wall -Wextra b2_errors.cpp -o b2_errors && ./b2_errors | grep -E 'summary|finished'
+summary: 8 lines, 4 bills stored, 4 lines rejected, 2 claims audited, day total 158900.00
+  round 2 finished normally, total 1500.00
+program finished normally
+[exit status 0]
+

@@ -1,0 +1,61 @@
+$ g++ -std=c++17 -Wall -Wextra b2_errors.cpp -o b2_errors
+[exit status 0]
+
+$ ./b2_errors
+== Test 1-5: bad input lines (errors.txt) ==
+line 1: INS    | OP 10 P101 500 1200
+  OK   bill #10 OP total 1700.00 -> Insurance(StarHealth) covers 1530.00, patient pays 170.00
+  ~ScopeTrace(line 'OP 10 P101 500 1200')
+line 2: INS    | OP 11 P101 -500 1200
+  ~Bill(#11)
+  ~ScopeTrace(line 'OP 11 P101 -500 1200')
+  REJECTED (InvalidChargeError): negative consultation (-500.00)
+line 3: INS    | IP 12 P102 30 2500 40000 4500
+  [audit] Insurance(StarHealth) rejected: bill #12: claim 107550.00 exceeds cover 50000.00
+  OK   bill #12 IP total 119500.00 -> SelfPay covers 0.00, patient pays 119500.00  [fallback after: bill #12: claim 107550.00 exceeds cover 50000.00]
+  ~ScopeTrace(line 'IP 12 P102 30 2500 40000 4500')
+line 4: SCHEME | DC 13 P103 KNEE
+  ~ScopeTrace(line 'DC 13 P103 KNEE')
+  REJECTED (UnknownPackageError): unknown package code KNEE
+line 5: INS    | ER 14 P104 2000 abc 800
+  ~ScopeTrace(line 'ER 14 P104 2000 abc 800')
+  REJECTED (std::invalid_argument from stod): text where a number is expected
+line 6: SCHEME | OP 15 P999 300 0
+  ~ScopeTrace(line 'OP 15 P999 300 0')
+  REJECTED (RecordNotFoundError): no patient record for P999
+line 7: SCHEME | DC 16 P105 HERNIA
+  [audit] Scheme(CMCHIS) rejected: bill #16: package DC-HERNIA not covered by CMCHIS
+  OK   bill #16 DC total 35000.00 -> SelfPay covers 0.00, patient pays 35000.00  [fallback after: bill #16: package DC-HERNIA not covered by CMCHIS]
+  ~ScopeTrace(line 'DC 16 P105 HERNIA')
+line 8: SCHEME | ER 17 P104 1500 2 600
+  OK   bill #17 ER total 2700.00 -> Scheme(CMCHIS) covers 2700.00, patient pays 0.00
+  ~ScopeTrace(line 'ER 17 P104 1500 2 600')
+summary: 8 lines, 4 bills stored, 4 lines rejected, 2 claims audited, day total 158900.00
+-- end of scope: desk and payers destroyed --
+  ~OutPatientBill(#10)
+  ~Bill(#10)
+  ~InPatientBill(#12)
+  ~Bill(#12)
+  ~DayCareBill(#16)
+  ~Bill(#16)
+  ~EmergencyBill(#17)
+  ~Bill(#17)
+
+== Test 6: memory allocation failure ==
+  requesting 1099511627776 doubles (8 TiB)...
+  ~ScopeTrace(allocateHuge)
+  caught std::bad_alloc: std::bad_alloc
+
+== Test 7: top-level catch(...) ==
+  ~EmergencyBill(#91)
+  ~Bill(#91)
+  ~ScopeTrace(round 1)
+  catch(...): unknown exception, program keeps running
+  round 2 finished normally, total 1500.00
+  ~EmergencyBill(#92)
+  ~Bill(#92)
+  ~ScopeTrace(round 2)
+
+program finished normally
+[exit status 0]
+

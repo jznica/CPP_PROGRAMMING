@@ -1,0 +1,60 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer -DUSE_VIRTUAL_DTOR experiments/b1_4_nonvirtual_dtor.cpp -o b1_4_virtual && ./b1_4_virtual
+total 47500
+~InPatientBill ~Bill 
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer experiments/b1_4_nonvirtual_dtor.cpp -o b1_4_nonvirtual
+experiments/b1_4_nonvirtual_dtor.cpp: In function 'int main()':
+experiments/b1_4_nonvirtual_dtor.cpp:35:5: warning: deleting object of abstract class type 'Bill' which has non-virtual destructor will cause undefined behavior [-Wdelete-non-virtual-dtor]
+   35 |     delete b;   // without a virtual destructor only ~Bill runs: undefined behaviour
+      |     ^~~~~~~~
+[exit status 0]
+
+$ ./b1_4_nonvirtual
+total 47500
+~Bill =================================================================
+==971==ERROR: AddressSanitizer: new-delete-type-mismatch on 0x506000000020 in thread T0:
+  object passed to delete has wrong type:
+  size of the allocated type:   64 bytes;
+  size of the deallocated type: 40 bytes.
+    #0 0x7f3d6a2ff5e8 in operator delete(void*, unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:164
+    #1 0x55903b92b9ca in main experiments/b1_4_nonvirtual_dtor.cpp:35
+    #2 0x7f3d69a2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f3d69a2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x55903b92b544 in _start (TaskB1/b1_4_nonvirtual+0x2544) (BuildId: 5e52f7222a89fe80475c8dc6bb115e21270b3b46)
+
+0x506000000020 is located 0 bytes inside of 64-byte region [0x506000000020,0x506000000060)
+allocated by thread T0 here:
+    #0 0x7f3d6a2fe548 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55903b92b6f2 in main experiments/b1_4_nonvirtual_dtor.cpp:33
+    #2 0x7f3d69a2a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #3 0x7f3d69a2a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #4 0x55903b92b544 in _start (TaskB1/b1_4_nonvirtual+0x2544) (BuildId: 5e52f7222a89fe80475c8dc6bb115e21270b3b46)
+
+SUMMARY: AddressSanitizer: new-delete-type-mismatch ../../../../src/libsanitizer/asan/asan_new_delete.cpp:164 in operator delete(void*, unsigned long)
+==971==HINT: if you don't care about these errors you may set ASAN_OPTIONS=new_delete_type_mismatch=0
+==971==ABORTING
+[exit status 1]
+
+$ ASAN_OPTIONS=new_delete_type_mismatch=0 ./b1_4_nonvirtual
+total 47500
+~Bill 
+
+=================================================================
+==972==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f89afcfe548 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55c308151c17 in std::__new_allocator<double>::allocate(unsigned long, void const*) /usr/include/c++/13/bits/new_allocator.h:151
+    #2 0x55c3081517fe in std::allocator_traits<std::allocator<double> >::allocate(std::allocator<double>&, unsigned long) /usr/include/c++/13/bits/alloc_traits.h:482
+    #3 0x55c3081517fe in std::_Vector_base<double, std::allocator<double> >::_M_allocate(unsigned long) /usr/include/c++/13/bits/stl_vector.h:381
+    #4 0x55c308151409 in void std::vector<double, std::allocator<double> >::_M_range_initialize<double const*>(double const*, double const*, std::forward_iterator_tag) /usr/include/c++/13/bits/stl_vector.h:1692
+    #5 0x55c308150af2 in std::vector<double, std::allocator<double> >::vector(std::initializer_list<double>, std::allocator<double> const&) /usr/include/c++/13/bits/stl_vector.h:682
+    #6 0x55c30814f80c in main experiments/b1_4_nonvirtual_dtor.cpp:33
+    #7 0x7f89af42a1c9 in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+    #8 0x7f89af42a28a in __libc_start_main_impl ../csu/libc-start.c:360
+    #9 0x55c30814f544 in _start (TaskB1/b1_4_nonvirtual+0x2544) (BuildId: 5e52f7222a89fe80475c8dc6bb115e21270b3b46)
+
+SUMMARY: AddressSanitizer: 32 byte(s) leaked in 1 allocation(s).
+[exit status 1]
+

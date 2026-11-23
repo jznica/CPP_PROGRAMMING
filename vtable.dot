@@ -1,0 +1,44 @@
+digraph VT {
+  graph [rankdir=TB, fontname="Helvetica", nodesep=0.5, ranksep=0.6];
+  node  [fontname="Helvetica", fontsize=10, shape=plain];
+  edge  [color="#333333", fontname="Helvetica"];
+  ptr [label=<<table border="1" cellborder="0" bgcolor="white"><tr><td><b>Bill* b</b></td></tr><tr><td port="p">●</td></tr></table>>];
+  op [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#eef6ff">
+     <tr><td colspan="2"><b>OutPatientBill object</b> (heap)</td></tr>
+     <tr><td>+0</td><td port="vp" bgcolor="#ffe8a3">vptr</td></tr>
+     <tr><td>+8</td><td>id_ (int)</td></tr><tr><td>+16</td><td>patient_ (string, 32 B)</td></tr>
+     <tr><td>+48</td><td>consultation_</td></tr><tr><td>+56</td><td>tests_</td></tr></table>>];
+  ip [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#eef6ff">
+     <tr><td colspan="2"><b>InPatientBill object</b></td></tr>
+     <tr><td>+0</td><td port="vp" bgcolor="#ffe8a3">vptr</td></tr>
+     <tr><td>+8 ..</td><td>id_, patient_, days_, perDay_, ...</td></tr></table>>];
+  vb [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#fff4e6">
+     <tr><td colspan="2"><b>vtable for Bill</b> (abstract)</td></tr>
+     <tr><td>-16</td><td>offset-to-top 0</td></tr><tr><td>-8</td><td>typeinfo Bill</td></tr>
+     <tr><td>[0]</td><td>0 (dtor of abstract class)</td></tr><tr><td>[1]</td><td>0 (deleting dtor)</td></tr>
+     <tr><td>[2]</td><td bgcolor="#ffd6d6">__cxa_pure_virtual (total)</td></tr>
+     <tr><td>[3]</td><td bgcolor="#ffd6d6">__cxa_pure_virtual (type)</td></tr>
+     <tr><td>[4]</td><td>Bill::package</td></tr><tr><td>[5]</td><td>Bill::print</td></tr></table>>];
+  vo [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#eef6ff">
+     <tr><td colspan="2"><b>vtable for OutPatientBill</b></td></tr>
+     <tr><td>-16</td><td>offset-to-top 0</td></tr><tr><td>-8</td><td>typeinfo OutPatientBill</td></tr>
+     <tr><td port="a">[0]</td><td>~OutPatientBill (complete)</td></tr><tr><td>[1]</td><td>~OutPatientBill (deleting)</td></tr>
+     <tr><td>[2]</td><td port="t" bgcolor="#c8f0c8"><b>OutPatientBill::total</b></td></tr>
+     <tr><td>[3]</td><td>OutPatientBill::type</td></tr>
+     <tr><td>[4]</td><td>Bill::package (inherited)</td></tr><tr><td>[5]</td><td>Bill::print (inherited)</td></tr></table>>];
+  vi [label=<<table border="1" cellborder="1" cellspacing="0" cellpadding="4" bgcolor="#eef6ff">
+     <tr><td colspan="2"><b>vtable for InPatientBill</b></td></tr>
+     <tr><td>-16</td><td>offset-to-top 0</td></tr><tr><td>-8</td><td>typeinfo InPatientBill</td></tr>
+     <tr><td port="a">[0]</td><td>~InPatientBill (complete)</td></tr><tr><td>[1]</td><td>~InPatientBill (deleting)</td></tr>
+     <tr><td>[2]</td><td bgcolor="#c8f0c8"><b>InPatientBill::total</b></td></tr>
+     <tr><td>[3]</td><td>InPatientBill::type</td></tr>
+     <tr><td>[4]</td><td>Bill::package (inherited)</td></tr><tr><td>[5]</td><td>Bill::print (inherited)</td></tr></table>>];
+  fn [shape=box, style="rounded,filled", fillcolor="#c8f0c8", label="OutPatientBill::total()\nreturn consultation_ + tests_"];
+  ptr:p -> op:vp [label=" ① b points to object", fontsize=9];
+  op:vp -> vo:a [label=" ② load vptr\n  movq (%rdi),%rax", fontsize=9];
+  ip:vp -> vi:a [style=dashed];
+  vo:t -> fn [label=" ③ jmp *16(%rax)\n   slot [2]", fontsize=9];
+  {rank=same; vb; vo; vi}
+  {rank=same; op; ip}
+  vb -> vo [style=invis]; vo -> vi [style=invis];
+}

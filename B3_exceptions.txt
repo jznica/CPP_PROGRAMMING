@@ -1,0 +1,69 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 bench_exceptions.cpp -o bench_exceptions
+[exit status 0]
+
+$ ./bench_exceptions
+B3.3  validating 1000000 bills, -O2, median of 21 runs
+sizeof(Status)+sizeof(double) = 4+8, sizeof(std::optional<double>) = 16, sizeof(InvalidChargeError) = 16
+
+ invalid | design      |   total ms |  ns/bill |  rejected | extra cost per invalid bill
+      0% | return code |       1.04 |     1.04 |         0 | -
+      0% | optional    |       2.17 |     2.17 |         0 | -
+      0% | exception   |       2.17 |     2.17 |         0 | -
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+      1% | return code |       1.18 |     1.18 |      9980 | -
+      1% | optional    |       2.16 |     2.16 |      9980 | -
+      1% | exception   |      12.80 |    12.80 |      9980 | 1.165 us
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+     50% | return code |       5.09 |     5.09 |    500231 | -
+     50% | optional    |       5.26 |     5.26 |    500231 | -
+     50% | exception   |     524.99 |   524.99 |    500231 | 1.039 us
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+[exit status 0]
+
+$ ./bench_exceptions
+B3.3  validating 1000000 bills, -O2, median of 21 runs
+sizeof(Status)+sizeof(double) = 4+8, sizeof(std::optional<double>) = 16, sizeof(InvalidChargeError) = 16
+
+ invalid | design      |   total ms |  ns/bill |  rejected | extra cost per invalid bill
+      0% | return code |       1.51 |     1.51 |         0 | -
+      0% | optional    |       2.58 |     2.58 |         0 | -
+      0% | exception   |       2.18 |     2.18 |         0 | -
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+      1% | return code |       1.34 |     1.34 |      9980 | -
+      1% | optional    |       2.51 |     2.51 |      9980 | -
+      1% | exception   |      12.41 |    12.41 |      9980 | 1.109 us
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+     50% | return code |       5.08 |     5.08 |    500231 | -
+     50% | optional    |       5.25 |     5.25 |    500231 | -
+     50% | exception   |     518.80 |   518.80 |    500231 | 1.027 us
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+[exit status 0]
+
+$ ./bench_exceptions
+B3.3  validating 1000000 bills, -O2, median of 21 runs
+sizeof(Status)+sizeof(double) = 4+8, sizeof(std::optional<double>) = 16, sizeof(InvalidChargeError) = 16
+
+ invalid | design      |   total ms |  ns/bill |  rejected | extra cost per invalid bill
+      0% | return code |       1.49 |     1.49 |         0 | -
+      0% | optional    |       3.38 |     3.38 |         0 | -
+      0% | exception   |       2.97 |     2.97 |         0 | -
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+      1% | return code |       1.50 |     1.50 |      9980 | -
+      1% | optional    |       3.24 |     3.24 |      9980 | -
+      1% | exception   |      18.83 |    18.83 |      9980 | 1.736 us
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+     50% | return code |       5.34 |     5.34 |    500231 | -
+     50% | optional    |       5.39 |     5.39 |    500231 | -
+     50% | exception   |     534.55 |   534.55 |    500231 | 1.058 us
+         results identical across designs: yes
+---------+-------------+------------+----------+-----------+----------------------------
+[exit status 0]
+

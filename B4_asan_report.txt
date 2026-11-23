@@ -1,0 +1,11 @@
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined b4_extension.cpp -o b4_extension_asan
+[exit status 0]
+
+$ ASAN_OPTIONS=detect_leaks=1:halt_on_error=1 ./b4_extension_asan > asan_run.log 2>&1; echo "exit status $?"; echo "sanitizer findings: $(grep -cE '==ERROR|runtime error:|LeakSanitizer' asan_run.log)"; tail -3 asan_run.log
+exit status 0
+sanitizer findings: 0
+  caught std::invalid_argument: stod
+  5/5 exceptions caught, bills still stored: 5
+20/20 settlements match hand calculation
+[exit status 0]
+

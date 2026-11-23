@@ -1,0 +1,22 @@
+$ g++ -std=c++17 -Wall -Wextra predict_output_nonvirtual_dtor.cpp -o predict_output_nonvirtual_dtor
+predict_output_nonvirtual_dtor.cpp: In function 'int main()':
+predict_output_nonvirtual_dtor.cpp:19:5: warning: deleting object of abstract class type 'Bill' which has non-virtual destructor will cause undefined behavior [-Wdelete-non-virtual-dtor]
+   19 |     delete b;
+      |     ^~~~~~~~
+[exit status 0]
+
+$ ./predict_output_nonvirtual_dtor
+500 ~Bill 
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra -g -fsanitize=address -fno-omit-frame-pointer predict_output_nonvirtual_dtor.cpp -o predict_output_nonvirtual_dtor_asan
+predict_output_nonvirtual_dtor.cpp: In function 'int main()':
+predict_output_nonvirtual_dtor.cpp:19:5: warning: deleting object of abstract class type 'Bill' which has non-virtual destructor will cause undefined behavior [-Wdelete-non-virtual-dtor]
+   19 |     delete b;
+      |     ^~~~~~~~
+[exit status 0]
+
+$ ./predict_output_nonvirtual_dtor_asan
+500 ~Bill 
+[exit status 0]
+

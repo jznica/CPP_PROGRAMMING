@@ -1,0 +1,129 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 bench_dispatch.cpp -o bench_dispatch
+[exit status 0]
+
+$ lscpu | grep -E 'Model name|^CPU\(s\)'; g++ --version | head -1
+CPU(s):                                  2
+Model name:                              Intel(R) Xeon(R) Processor @ 2.30GHz
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+[exit status 0]
+
+$ ./bench_dispatch
+B3.1  correctness on 10 bills (seed 7)
+  #  type  virtual total   switch total   agree
+   1  OP         6169.81        6169.81   yes
+   2  ER         7962.94        7962.94   yes
+   3  DC         8962.81        8962.81   yes
+   4  IP        59143.09       59143.09   yes
+   5  IP        27943.54       27943.54   yes
+   6  DC        24028.51       24028.51   yes
+   7  IP        67054.18       67054.18   yes
+   8  ER        32235.41       32235.41   yes
+   9  ER        11415.68       11415.68   yes
+  10  DC        30726.41       30726.41   yes
+  sum          275642.39      275642.39   yes   (10/10 bills agree)
+
+Space per element (bytes): virtual object sizeof OP/IP/DC/ER = 24/40/16/32 + 8-byte pointer + heap header
+                           switch BillRec = 32, variant = 40 (largest alternative IPv = 32 + tag + padding)
+
+B3.2  time to total n bills, -O2, median of repetitions
+          n | method     |  ms per pass |  ns/bill | total
+       1000 | virtual    |       0.0021 |    2.085 | 26928334.72
+       1000 | switch     |       0.0021 |    2.080 | 26928334.72
+       1000 | variant    |       0.0021 |    2.080 | 26928334.72
+       1000 | dyncast    |       0.0261 |   26.138 | 26928334.72
+       1000 | templates  |       0.0017 |    1.735 | 26928334.72
+------------+------------+--------------+----------+------------
+    1000000 | virtual    |       8.9953 |    8.995 | 27906121638.61
+    1000000 | switch     |       6.3820 |    6.382 | 27906121638.61
+    1000000 | variant    |       6.3258 |    6.326 | 27906121638.61
+    1000000 | dyncast    |      31.3126 |   31.313 | 27906121638.61
+    1000000 | templates  |       2.0242 |    2.024 | 27906121638.61
+------------+------------+--------------+----------+------------
+   10000000 | virtual    |      96.7844 |    9.678 | 278812329558.14
+   10000000 | switch     |      77.5301 |    7.753 | 278812329558.14
+   10000000 | variant    |      81.3347 |    8.133 | 278812329558.14
+   10000000 | dyncast    |     302.3370 |   30.234 | 278812329558.14
+   10000000 | templates  |      30.5490 |    3.055 | 278812329558.15
+------------+------------+--------------+----------+------------
+[exit status 0]
+
+$ ./bench_dispatch
+B3.1  correctness on 10 bills (seed 7)
+  #  type  virtual total   switch total   agree
+   1  OP         6169.81        6169.81   yes
+   2  ER         7962.94        7962.94   yes
+   3  DC         8962.81        8962.81   yes
+   4  IP        59143.09       59143.09   yes
+   5  IP        27943.54       27943.54   yes
+   6  DC        24028.51       24028.51   yes
+   7  IP        67054.18       67054.18   yes
+   8  ER        32235.41       32235.41   yes
+   9  ER        11415.68       11415.68   yes
+  10  DC        30726.41       30726.41   yes
+  sum          275642.39      275642.39   yes   (10/10 bills agree)
+
+Space per element (bytes): virtual object sizeof OP/IP/DC/ER = 24/40/16/32 + 8-byte pointer + heap header
+                           switch BillRec = 32, variant = 40 (largest alternative IPv = 32 + tag + padding)
+
+B3.2  time to total n bills, -O2, median of repetitions
+          n | method     |  ms per pass |  ns/bill | total
+       1000 | virtual    |       0.0021 |    2.086 | 26928334.72
+       1000 | switch     |       0.0021 |    2.078 | 26928334.72
+       1000 | variant    |       0.0021 |    2.079 | 26928334.72
+       1000 | dyncast    |       0.0261 |   26.148 | 26928334.72
+       1000 | templates  |       0.0017 |    1.733 | 26928334.72
+------------+------------+--------------+----------+------------
+    1000000 | virtual    |       8.5499 |    8.550 | 27906121638.61
+    1000000 | switch     |       6.4805 |    6.481 | 27906121638.61
+    1000000 | variant    |       6.3678 |    6.368 | 27906121638.61
+    1000000 | dyncast    |      30.9712 |   30.971 | 27906121638.61
+    1000000 | templates  |       2.0077 |    2.008 | 27906121638.61
+------------+------------+--------------+----------+------------
+   10000000 | virtual    |      98.3614 |    9.836 | 278812329558.14
+   10000000 | switch     |      77.7242 |    7.772 | 278812329558.14
+   10000000 | variant    |      81.8178 |    8.182 | 278812329558.14
+   10000000 | dyncast    |     304.5438 |   30.454 | 278812329558.14
+   10000000 | templates  |      34.4413 |    3.444 | 278812329558.15
+------------+------------+--------------+----------+------------
+[exit status 0]
+
+$ ./bench_dispatch
+B3.1  correctness on 10 bills (seed 7)
+  #  type  virtual total   switch total   agree
+   1  OP         6169.81        6169.81   yes
+   2  ER         7962.94        7962.94   yes
+   3  DC         8962.81        8962.81   yes
+   4  IP        59143.09       59143.09   yes
+   5  IP        27943.54       27943.54   yes
+   6  DC        24028.51       24028.51   yes
+   7  IP        67054.18       67054.18   yes
+   8  ER        32235.41       32235.41   yes
+   9  ER        11415.68       11415.68   yes
+  10  DC        30726.41       30726.41   yes
+  sum          275642.39      275642.39   yes   (10/10 bills agree)
+
+Space per element (bytes): virtual object sizeof OP/IP/DC/ER = 24/40/16/32 + 8-byte pointer + heap header
+                           switch BillRec = 32, variant = 40 (largest alternative IPv = 32 + tag + padding)
+
+B3.2  time to total n bills, -O2, median of repetitions
+          n | method     |  ms per pass |  ns/bill | total
+       1000 | virtual    |       0.0021 |    2.086 | 26928334.72
+       1000 | switch     |       0.0021 |    2.080 | 26928334.72
+       1000 | variant    |       0.0021 |    2.080 | 26928334.72
+       1000 | dyncast    |       0.0262 |   26.233 | 26928334.72
+       1000 | templates  |       0.0017 |    1.734 | 26928334.72
+------------+------------+--------------+----------+------------
+    1000000 | virtual    |      10.2728 |   10.273 | 27906121638.61
+    1000000 | switch     |       6.7814 |    6.781 | 27906121638.61
+    1000000 | variant    |       7.8415 |    7.841 | 27906121638.61
+    1000000 | dyncast    |      32.8601 |   32.860 | 27906121638.61
+    1000000 | templates  |       2.4808 |    2.481 | 27906121638.61
+------------+------------+--------------+----------+------------
+   10000000 | virtual    |     102.4107 |   10.241 | 278812329558.14
+   10000000 | switch     |      78.4563 |    7.846 | 278812329558.14
+   10000000 | variant    |      81.5113 |    8.151 | 278812329558.14
+   10000000 | dyncast    |     310.5262 |   31.053 | 278812329558.14
+   10000000 | templates  |      29.4355 |    2.944 | 278812329558.15
+------------+------------+--------------+----------+------------
+[exit status 0]
+

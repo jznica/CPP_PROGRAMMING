@@ -1,0 +1,16 @@
+$ g++ -std=c++17 -Wall -Wextra -DUSE_VIRTUAL experiments/b1_3_nonvirtual_total.cpp -o b1_3_virtual && ./b1_3_virtual
+total() IS virtual   (late binding)
+direct object call : OP 1700, IP 47500
+through Bill*      : OP Ravi = 1700
+through Bill*      : IP Meena = 47500
+day total via Bill*: 49200
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra experiments/b1_3_nonvirtual_total.cpp -o b1_3_nonvirtual && ./b1_3_nonvirtual
+total() NOT virtual  (early binding)
+direct object call : OP 1700, IP 47500
+through Bill*      : OP Ravi = 0
+through Bill*      : IP Meena = 0
+day total via Bill*: 0
+[exit status 0]
+

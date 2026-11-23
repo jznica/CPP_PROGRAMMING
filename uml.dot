@@ -1,0 +1,69 @@
+digraph UML {
+  graph [rankdir=BT, fontname="Helvetica", nodesep=0.35, ranksep=0.55, splines=spline];
+  node  [shape=plain, fontname="Helvetica", fontsize=10];
+  edge  [arrowhead=onormal, arrowsize=1.1, color="#333333", fontname="Helvetica"];
+
+  Bill [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#fff4e6">
+   <tr><td><i>«abstract»</i></td></tr><tr><td><b><i>Bill</i></b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T"># id : int<br/># patient : string</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">
+   + «virtual» ~Bill()<br/>
+   + <i>total() : double const noexcept = 0</i> {pure virtual}<br/>
+   + <i>type() : string const = 0</i> {pure virtual}<br/>
+   + «virtual» package() : string const<br/>
+   + «virtual» print(os) const<br/>
+   + id(), patient() const noexcept</td></tr></table>>];
+
+  OP [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eef6ff">
+   <tr><td><b>OutPatientBill</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- consultation, tests : double</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ total() «override»<br/>+ type() «override» → "OP"</td></tr></table>>];
+  IP [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eef6ff">
+   <tr><td><b>InPatientBill</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- days : int<br/>- perDay, procedures, medicines</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ total() «override»<br/>+ type() «override» → "IP"</td></tr></table>>];
+  DC [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eef6ff">
+   <tr><td><b>DayCareBill</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- code : string<br/>- packagePrice : double</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ total() «override»<br/>+ type() «override» → "DC"<br/>+ package() «override»</td></tr></table>>];
+  ER [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eef6ff">
+   <tr><td><b>EmergencyBill</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- base, hours, perHour : double</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ total() «override»<br/>+ type() «override» → "ER"</td></tr></table>>];
+  TELE [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eaf7ea" style="dashed">
+   <tr><td><b>TeleConsultBill</b> (B4)</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- minutes, perMinute, fee</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ total() «override»<br/>+ type() «override» → "TELE"</td></tr></table>>];
+
+  Payer [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#fff4e6">
+   <tr><td><i>«abstract»</i></td></tr><tr><td><b><i>Payer</i></b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ «virtual» ~Payer() = default<br/>
+   + <i>amountCovered(const Bill&amp;) : double const = 0</i><br/>
+   + <i>name() : string const = 0</i></td></tr></table>>];
+  Self [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eef6ff">
+   <tr><td><b>SelfPay</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ amountCovered() «override» → 0</td></tr></table>>];
+  Ins [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eef6ff">
+   <tr><td><b>Insurance</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- insurer : string<br/>- coverLimit, copayPct : double</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ amountCovered() «override»<br/>  throws CoverExceededError</td></tr></table>>];
+  Gov [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eef6ff">
+   <tr><td><b>GovernmentScheme</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- scheme : string<br/>- rates : map&lt;string,double&gt;</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ amountCovered() «override»<br/>  throws ClaimError</td></tr></table>>];
+  Corp [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#eaf7ea" style="dashed">
+   <tr><td><b>CorporateTieUp</b> (B4)</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- company; sharePct, capPerBill</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ amountCovered() «override»</td></tr></table>>];
+
+  Desk [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="3" bgcolor="#f3f0ff">
+   <tr><td><b>BillingDesk</b></td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">- bills : vector&lt;unique_ptr&lt;Bill&gt;&gt;<br/>- audit : vector&lt;string&gt;</td></tr>
+   <tr><td align="left" balign="left" border="1" sides="T">+ add(unique_ptr&lt;Bill&gt;) : Bill&amp;<br/>+ settle(Bill, Payer) : Settlement<br/>+ settleOrFallback(Bill, Payer, Payer)<br/>+ dayTotal() const noexcept</td></tr></table>>];
+
+  {OP IP DC ER TELE} -> Bill;
+  {Self Ins Gov Corp} -> Payer;
+  Payer -> IP [style=invis]; Payer -> DC [style=invis];
+  Desk -> Bill [arrowhead=diamond, arrowtail=none, dir=forward, xlabel="owns 0..*", fontsize=9, constraint=false];
+  Desk -> Payer [arrowhead=vee, style=dashed, xlabel="uses", fontsize=9, constraint=false];
+}

@@ -1,0 +1,17 @@
+$ g++ -std=c++17 -Wall -Wextra -O2 alt_std_function.cpp -o alt_std_function
+[exit status 0]
+
+$ ./alt_std_function
+Space per payer (bytes)
+  abstract class : SelfPay 8, Insurance 24, Scheme 56 (vptr + data members)
+  std::function  : 32 each; the Insurance lambda captures 16 bytes (fits the small buffer);
+                   the Scheme lambda captures a 48-byte map -> heap-allocated inside std::function
+  function ptr   : 8 (no place to store a cover limit -> needs globals or extra parameters)
+
+Same answers: Insurance 46800.00 vs 46800.00, Scheme 30000.00 vs 30000.00, SelfPay 0.00 vs 0.00
+
+Time per call (1,000,000 calls, -O2, median of 21)
+  virtual Payer::amountCovered : 9.28 ns   sum 13475251687.89
+  std::function call           : 7.20 ns   sum 13475251687.89
+[exit status 0]
+

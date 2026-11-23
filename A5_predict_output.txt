@@ -1,0 +1,7 @@
+$ g++ -std=c++17 -Wall -Wextra predict_output.cpp -o predict_output
+[exit status 0]
+
+$ ./predict_output
+~f ~main caught 42
+[exit status 0]
+

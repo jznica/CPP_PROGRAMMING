@@ -1,0 +1,43 @@
+$ g++ -std=c++17 -Wall -Wextra -fdump-lang-class -c vtable_dump.cpp -o /dev/null && for c in Bill OutPatientBill InPatientBill; do awk -v n="Vtable for hb::$c" '$0==n{p=1} p&&/^$/{exit} p' vtable_dump.cpp.*.class; echo; done; rm -f vtable_dump.cpp.*.class
+Vtable for hb::Bill
+hb::Bill::_ZTVN2hb4BillE: 8 entries
+0     (int (*)(...))0
+8     (int (*)(...))(& _ZTIN2hb4BillE)
+16    0
+24    0
+32    (int (*)(...))__cxa_pure_virtual
+40    (int (*)(...))__cxa_pure_virtual
+48    (int (*)(...))hb::Bill::package
+56    (int (*)(...))hb::Bill::print
+
+Vtable for hb::OutPatientBill
+hb::OutPatientBill::_ZTVN2hb14OutPatientBillE: 8 entries
+0     (int (*)(...))0
+8     (int (*)(...))(& _ZTIN2hb14OutPatientBillE)
+16    (int (*)(...))hb::OutPatientBill::~OutPatientBill
+24    (int (*)(...))hb::OutPatientBill::~OutPatientBill
+32    (int (*)(...))hb::OutPatientBill::total
+40    (int (*)(...))hb::OutPatientBill::type
+48    (int (*)(...))hb::Bill::package
+56    (int (*)(...))hb::Bill::print
+
+Vtable for hb::InPatientBill
+hb::InPatientBill::_ZTVN2hb13InPatientBillE: 8 entries
+0     (int (*)(...))0
+8     (int (*)(...))(& _ZTIN2hb13InPatientBillE)
+16    (int (*)(...))hb::InPatientBill::~InPatientBill
+24    (int (*)(...))hb::InPatientBill::~InPatientBill
+32    (int (*)(...))hb::InPatientBill::total
+40    (int (*)(...))hb::InPatientBill::type
+48    (int (*)(...))hb::Bill::package
+56    (int (*)(...))hb::Bill::print
+
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra -O2 -S vtable_dump.cpp -o - | grep -A5 '^_Z9callTotalPKN2hb4BillE:' | grep -vE '^\.|cfi'
+_Z9callTotalPKN2hb4BillE:
+	endbr64
+	movq	(%rdi), %rax
+	jmp	*16(%rax)
+[exit status 0]
+

@@ -1,0 +1,16 @@
+$ g++ -std=c++17 -Wall -Wextra rethrow_throw_e.cpp -o rethrow && ./rethrow
+== settle() uses  throw;   ==
+approved 40000
+audit: exceeds cover  (caught object at 0x56446c28c340)
+cover exceeded -> route to self-pay: exceeds cover  (object at 0x56446c28c340)
+error: negative amount
+[exit status 0]
+
+$ g++ -std=c++17 -Wall -Wextra -DRETHROW_COPY rethrow_throw_e.cpp -o rethrow_copy && ./rethrow_copy
+== settle() uses  throw e; ==
+approved 40000
+audit: exceeds cover  (caught object at 0x55b4323db340)
+claim rejected: exceeds cover  [dynamic type ClaimError, object at 0x55b4323db410]
+error: negative amount
+[exit status 0]
+
